@@ -11,9 +11,6 @@ public class SceneSingleton<T> : MonoBehaviour where T : MonoBehaviour
         get
         {
             if (_instance == null)
-                _instance = FindObjectOfType<T>();
-            
-            if (_instance == null)
             {
                 GameObject prefab = Resources.Load(typeof(T).Name) as GameObject;
                 GameObject singleton = Instantiate(prefab);
@@ -24,7 +21,7 @@ public class SceneSingleton<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
     
-    protected virtual void Awake()
+    public SceneSingleton()
     {
         if (_instance == null)
         {
