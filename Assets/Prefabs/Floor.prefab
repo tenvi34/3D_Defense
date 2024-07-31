@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 669878974357388}
   - component: {fileID: 5920454441896674826}
   - component: {fileID: 9023492846143414715}
+  - component: {fileID: 1064476423722009999}
+  - component: {fileID: 6658114923568694642}
   m_Layer: 3
   m_Name: Floor
   m_TagString: Untagged
@@ -27,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5011798744440127909}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.683598, y: -1.6923542, z: 16.775398}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
@@ -105,3 +107,30 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1064476423722009999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5011798744440127909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c655159d7772bfc4eb332f6119c2b436, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6658114923568694642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5011798744440127909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a85f45c628644b49847539984a2f099, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMaterial: {fileID: 2100000, guid: f5b10cb85bfe6174a8ad5ecd2ea278ef, type: 2}
+  outlineScaleFactor: -0.11
+  outlineColor: {r: 0, g: 0, b: 0, a: 0}
