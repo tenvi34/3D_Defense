@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SceneSingleton<T> : MonoBehaviour where T : MonoBehaviour
+public class ASingleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T _instance;
 
@@ -21,11 +22,19 @@ public class SceneSingleton<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
     
-    public SceneSingleton()
+    protected virtual void Awake()
     {
         if (_instance == null)
         {
             _instance = this as T;
         }
+    }
+}
+
+public class SceneSingleton<T> : ASingleton<T> where T : MonoBehaviour
+{
+    protected sealed override void Awake()
+    {
+        base.Awake();
     }
 }
