@@ -1,11 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public class Phase1_Ready : VMyState<PhaseState>
 {
     public override PhaseState StateEnum => PhaseState.Phase1_Ready;
-    public override void EnterState()
+
+    protected override void EnterState()
     {
         StartCoroutine(GoToNextState());
     }
@@ -16,11 +19,11 @@ public class Phase1_Ready : VMyState<PhaseState>
         OwnerStateMachine.ChangeState(PhaseState.Phase1_Running);
     }
 
-    public override void ExcuteState()
+    protected  override void ExcuteState()
     {
     }
 
-    public override void ExitState()
+    protected  override void ExitState()
     {
     }
 }

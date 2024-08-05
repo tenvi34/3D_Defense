@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public enum PhaseState
 {
@@ -15,9 +16,9 @@ public class PhaseManager : SceneSingleton<PhaseManager>
     private PhaseStateMachine _stateMachine;
     public List<Transform> _destinations = new();
     
-    // Start is called before the first frame update
     void Awake()
     {
+        base.Awake();
         _stateMachine = GetComponent<PhaseStateMachine>();
     }
 
@@ -32,7 +33,6 @@ public class PhaseManager : SceneSingleton<PhaseManager>
         return (resultIndex, _destinations[resultIndex].position);
     }
 
-    // Update is called once per frame
     void Update()
     {
         

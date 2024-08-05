@@ -20,6 +20,7 @@ public class MyPlayerController : SceneSingleton<MyPlayerController>
     
     public GameObject GetNewMonster(Vector3 position, Quaternion rotation)
     {
+        Debug.Log("몬스터 생성중..");
         GameObject prefab = Monsters[Random.Range(0, Monsters.Count)];
         GameObject instance = Instantiate(prefab, position, rotation);
         MonsterInstances.Add(instance.GetInstanceID(), instance);
