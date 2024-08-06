@@ -67,11 +67,12 @@ public class MonsterController : MonoBehaviour
         }
         
         // ======================= 공격 기능 =======================
-        GameObject target = FindTarget();
-        if (target != null) // 타겟을 찾으면 상태 변경
-        {
-            _stateMachine.ChangeState(MonsterState.Attack);
-        }
+        // GameObject target = FindTarget();
+        // if (target != null) // 타겟을 찾으면 상태 변경
+        // {
+        //     Debug.Log("공격 상태 전환");
+        //     _stateMachine.ChangeState(MonsterState.Attack);
+        // }
     }
     
     // 다음 목적지로 이동
@@ -131,6 +132,7 @@ public class MonsterController : MonoBehaviour
 
         if (findTarget.Length > 0)
         {
+            // Debug.Log("플레이어 감지 완료");
             return findTarget[0].gameObject; // 하나의 타겟만 지정
         }
 

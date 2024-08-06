@@ -71,9 +71,9 @@ public class MonsterAttackState : VMyState<MonsterState>
 
     protected override void ExitState()
     {
-        //Debug.Log("공격 상태 종료");
-        StopAllCoroutines();
-        currentTarget = null;
+        // Debug.Log("공격 상태 종료");
+        // StopAllCoroutines();
+        // currentTarget = null;
     }
     
     public T GetEnumValue<T>() where T : System.Enum
