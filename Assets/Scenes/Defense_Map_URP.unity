@@ -30665,25 +30665,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2419323373321669851, guid: 525c162bdf4b1424fa9595d9bff7eadf,
-        type: 3}
-      propertyPath: Interval
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2419323373321669851, guid: 525c162bdf4b1424fa9595d9bff7eadf,
-        type: 3}
-      propertyPath: SpawnMonsterCount
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3201718108532217406, guid: 525c162bdf4b1424fa9595d9bff7eadf,
         type: 3}
       propertyPath: m_Name
       value: PhaseManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 5383581806690132527, guid: 525c162bdf4b1424fa9595d9bff7eadf,
-        type: 3}
-      propertyPath: monsterSpawner
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -200,7 +200,6 @@ public class StateMachine<T> : MonoBehaviour where T : Enum
         }
     }
     
-    // Start is called before the first frame update
     protected virtual void Awake()
     {
         // 이거는 성능이 직접 컴포넌트 가져오는 방식 대비 비싸다.
@@ -218,7 +217,6 @@ public class StateMachine<T> : MonoBehaviour where T : Enum
         ChangeState(defaultState);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (_currentMyState != null)

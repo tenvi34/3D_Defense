@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 109379678997838601}
   - component: {fileID: 5383581806690132527}
   - component: {fileID: 1361584085383604068}
-  - component: {fileID: 381131126925824545}
+  - component: {fileID: 7758317141014915670}
   - component: {fileID: 2419323373321669851}
   m_Layer: 0
   m_Name: PhaseManager
@@ -87,7 +87,6 @@ MonoBehaviour:
   - {fileID: 4993610972175198689}
   - {fileID: 773009443153647273}
   - {fileID: 129434045551418970}
-  monsterSpawner: {fileID: 0}
 --- !u!114 &1361584085383604068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultState: 1
---- !u!114 &381131126925824545
+--- !u!114 &7758317141014915670
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,8 +124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 862ebee2c3565814390b07d3fe1fc762, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnMonsterCount: 10
-  Interval: 2
+  SpawnMonsterCount: 1
+  Interval: 3
 --- !u!1 &5832946983767119644
 GameObject:
   m_ObjectHideFlags: 0

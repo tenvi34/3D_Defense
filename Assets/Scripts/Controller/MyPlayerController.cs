@@ -12,6 +12,7 @@ public class MyPlayerController : SceneSingleton<MyPlayerController>
     
     public GameObject GetNewCharacter(Vector3 position, Quaternion rotation)
     {
+        Debug.Log("플레이어 캐릭터 생성");
         GameObject prefab = Characters[Random.Range(0, Characters.Count)];
         GameObject instance = Instantiate(prefab, position, rotation);
         CharacterInstances.Add(instance.GetInstanceID(), instance);

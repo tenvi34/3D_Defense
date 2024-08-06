@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5846384854355321138}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RigTail1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2165055698829304106}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RigEarL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2385582137127880254}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RigPelvis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 127136824062825846}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,7 +135,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3894885064439933418}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RigEarR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +172,8 @@ GameObject:
   - component: {fileID: 5320646929458267894}
   - component: {fileID: 1022786040116941551}
   - component: {fileID: 2379195456460193204}
-  m_Layer: 0
+  - component: {fileID: -4652879096114646308}
+  m_Layer: 7
   m_Name: Bunny
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,7 +279,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02284b45262f0eb40b93b8c73ef8a91e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DestinationIndex: 0
   Speed: 5
+  _stateMachine: {fileID: 1022786040116941551}
+  attackRange: 100
+  detectionRadius: 100
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &1022786040116941551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,6 +312,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c2e939ac5af99241941a7de83933b9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-4652879096114646308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3826281789200122343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44aaedb7a52433e48a0ce1acd9c7b8dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackCoolTime: 2
 --- !u!1 &7673529645114995410
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,7 +335,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4711649437442436423}
   - component: {fileID: 5317791304969106260}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bunny
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -404,7 +425,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6562671094978481471}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RigHead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -437,7 +458,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1287211608299304974}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RigNeck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
