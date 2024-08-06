@@ -17,7 +17,7 @@ public class MonsterAttackState : VMyState<MonsterState>
         _monsterController = GetComponent<MonsterController>();
         if (_monsterController == null)
         {
-            Debug.LogError("MonsterController component not found on this GameObject!");
+            Debug.LogError("MonsterController가 연결되지 않음");
         }
     }
     
@@ -36,7 +36,7 @@ public class MonsterAttackState : VMyState<MonsterState>
     {
         if (_monsterController == null)
         {
-            Debug.LogError("MonsterController is not initialized!");
+            Debug.LogError("MonsterController 초기화 실패");
             return;
         }
         

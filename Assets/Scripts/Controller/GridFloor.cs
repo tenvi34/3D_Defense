@@ -15,7 +15,8 @@ public class GridFloor : MonoBehaviour
 
     private void OnMouseDown()
     {
-        MyPlayerController.Instance.GetNewCharacter(transform.position + Vector3.up * 10, Quaternion.identity);
+        Debug.Log("마우스 클릭");
+        MyPlayerController.Instance.GetNewCharacter(transform.position + Vector3.up * 2, Quaternion.identity);
     }
     
     private void OnMouseEnter()
