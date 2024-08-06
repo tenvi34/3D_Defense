@@ -2,8 +2,8 @@ using UnityEngine;
 
 public enum MonsterState
 {
-    Move,
-    Attack,
+    Move,   // 이동
+    Attack, // 공격
 }
 
 public class MonsterStateMachine : StateMachine<MonsterState>
