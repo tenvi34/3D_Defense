@@ -894,6 +894,7 @@ GameObject:
   - component: {fileID: 8779228262139498271}
   - component: {fileID: 5377687314334865629}
   - component: {fileID: 2658717989047986677}
+  - component: {fileID: -7970258554948019050}
   m_Layer: 7
   m_Name: mini simple demo_03
   m_TagString: Untagged
@@ -1058,6 +1059,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackCoolTime: 2
+--- !u!195 &-7970258554948019050
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3580954379507441547}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &3637190954191098649
 GameObject:
   m_ObjectHideFlags: 0

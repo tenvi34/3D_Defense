@@ -48,8 +48,9 @@ public class MonsterAttackState : VMyState<MonsterState>
         }
         else
         {
+            
             Vector3 direction = (currentTarget.transform.position - transform.position).normalized;
-            _monsterController.MoveInDirection(direction);
+            // _monsterController.MoveInDirection(direction);
         }
     }
 

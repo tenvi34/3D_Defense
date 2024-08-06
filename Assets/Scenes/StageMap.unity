@@ -3976,7 +3976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 862ebee2c3565814390b07d3fe1fc762, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnMonsterCount: 2
+  SpawnMonsterCount: 1
   Interval: 3
 --- !u!114 &1909964400
 MonoBehaviour:

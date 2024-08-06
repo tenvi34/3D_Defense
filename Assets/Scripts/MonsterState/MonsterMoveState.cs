@@ -37,6 +37,7 @@ public class MonsterMoveState : VMyState<MonsterState>
         
         // 목적지로 이동
         (int, Vector3) destinationInfo = PhaseManager.Instance.GetDestination(_monsterController.DestinationIndex);
+        _monsterController.DestinationIndex = destinationInfo.Item1;
         _navMeshAgent.SetDestination(destinationInfo.Item2);
 
         // 목적지에 도달했는지 확인하고, 도달 시 다음 목적지로 인덱스 증가

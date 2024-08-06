@@ -32,6 +32,11 @@ public class PhaseManager : SceneSingleton<PhaseManager>
 
         return (resultIndex, _destinations[resultIndex].position);
     }
+    
+    public int GetDestinationCount()
+    {
+        return _destinations.Count;
+    }
 
     void Update()
     {
