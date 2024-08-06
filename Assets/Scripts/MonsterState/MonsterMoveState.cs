@@ -28,22 +28,32 @@ public class MonsterMoveState : VMyState<MonsterState>
     protected override void ExcuteState_FixedUpdate()
     {
         // Debug.Log("Move State 실행");
-        // (int, Vector3) destinationInfo = PhaseManager.Instance.GetDestination(_monsterController.DestinationIndex);
-        // _monsterController.DestinationIndex = destinationInfo.Item1;
-        // if (_monsterController.MoveToDestination(destinationInfo.Item2))
-        // {
-        //     _monsterController.DestinationIndex++;
-        // }
-        
-        // 목적지로 이동
-        (int, Vector3) destinationInfo = PhaseManager.Instance.GetDestination(_monsterController.DestinationIndex);
-        _monsterController.DestinationIndex = destinationInfo.Item1;
-        _navMeshAgent.SetDestination(destinationInfo.Item2);
+        GameObject target = _monsterController.FindTarget();
 
-        // 목적지에 도달했는지 확인하고, 도달 시 다음 목적지로 인덱스 증가
-        if (_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance && !_navMeshAgent.pathPending)
+        if (target != null)
         {
-            _monsterController.DestinationIndex++;
+            // 감지 범위에 플레이어가 들어오면 플레이어로 이동
+            Debug.Log("플레이어 발견");
+            _navMeshAgent.SetDestination(target.transform.position);
+            
+            // 공격 범위 확인
+            float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
+            if (distanceToTarget <= _monsterController.attackRange) // 공격 범위에 들어오면
+            {
+                _monsterController._stateMachine.ChangeState(MonsterState.Attack); // 공격 상태로 전환
+            }
+        }
+        else
+        {
+            // 감지 범위 밖일 때
+            (int, Vector3) destinationInfo = PhaseManager.Instance.GetDestination(_monsterController.DestinationIndex);
+            _monsterController.DestinationIndex = destinationInfo.Item1;
+            _navMeshAgent.SetDestination(destinationInfo.Item2);
+
+            if (_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance && !_navMeshAgent.pathPending)
+            {
+                _monsterController.DestinationIndex++;
+            }
         }
     }
 

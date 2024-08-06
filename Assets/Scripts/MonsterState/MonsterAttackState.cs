@@ -20,7 +20,7 @@ public class MonsterAttackState : VMyState<MonsterState>
     
     protected override void EnterState()
     {
-        Debug.Log("공격 상태 진입");
+        //Debug.Log("공격 상태 진입");
         canAttack = true;
         currentTarget = _monsterController.FindTarget();
     }
@@ -29,28 +29,34 @@ public class MonsterAttackState : VMyState<MonsterState>
     {
         if (currentTarget == null)
         {
-            _monsterController._stateMachine.ChangeState(MonsterState.Move);
-            return;
+            currentTarget = _monsterController.FindTarget();
+            if (currentTarget == null)
+            {
+                _monsterController._stateMachine.ChangeState(MonsterState.Move);
+                return;
+            }
         }
-
-        float distance = Vector3.Distance(transform.position, currentTarget.transform.position);
         
-        if (distance <= _monsterController.attackRange)
+        float distanceToPlayer = Vector3.Distance(transform.position, currentTarget.transform.position);
+        
+        if (distanceToPlayer <= _monsterController.attackRange)
         {
+            // 공격 범위 안에 있으면 공격
             if (canAttack)
             {
                 StartCoroutine(Attack(currentTarget));
             }
         }
-        else if (distance > _monsterController.detectionRadius)
+        else if (distanceToPlayer <= _monsterController.detectionRange)
         {
-            _monsterController._stateMachine.ChangeState(MonsterState.Move);
+            // 감지 범위 안에 있지만 공격 범위 밖이면 플레이어를 향해 이동
+            Vector3 directionToTarget = (currentTarget.transform.position - transform.position).normalized;
+            _monsterController.MoveInDirection(directionToTarget);
         }
         else
         {
-            
-            Vector3 direction = (currentTarget.transform.position - transform.position).normalized;
-            // _monsterController.MoveInDirection(direction);
+            // 감지 범위를 벗어나면 다시 Move 상태
+            _monsterController._stateMachine.ChangeState(MonsterState.Move);
         }
     }
 
@@ -65,7 +71,7 @@ public class MonsterAttackState : VMyState<MonsterState>
 
     protected override void ExitState()
     {
-        Debug.Log("공격 상태 종료");
+        //Debug.Log("공격 상태 종료");
         StopAllCoroutines();
         currentTarget = null;
     }

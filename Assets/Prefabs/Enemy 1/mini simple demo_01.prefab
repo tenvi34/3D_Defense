@@ -987,11 +987,13 @@ MonoBehaviour:
   DestinationIndex: 0
   Speed: 5
   _stateMachine: {fileID: 7187054963736769139}
-  attackRange: 2
-  detectionRadius: 10
+  attackRange: 3
+  detectionRange: 7
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
+  showDetectionRange: 1
+  showAttackRange: 1
 --- !u!114 &7187054963736769139
 MonoBehaviour:
   m_ObjectHideFlags: 0

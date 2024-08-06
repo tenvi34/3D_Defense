@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,11 +14,20 @@ public class MonsterController : MonoBehaviour
 
     //공격 관련
     public float attackRange = 2.0f; // 공격 범위
-    public float detectionRadius = 5.0f; // 플레이어 감지 범위
+    public float detectionRange = 5.0f; // 플레이어 감지 범위
     public LayerMask playerLayer; // 플레이어 레이어
-
     private GameObject currentTarget;
-   private bool isReversing = false; // 역순 이동 여부를 관리하는 플래그
+    
+    // 목적지 이동
+    private bool isReverse = false; // Destination 역순으로
+    
+    // 적 감지 범위 표시 관련
+    public bool showDetectionRange = true; // 표시 여부
+    private LineRenderer detectionRangeRenderer; // 감지 범위 표시
+    
+    // 적 감지 범위 표시 관련
+    public bool showAttackRange = true; // 표시 여부
+    private LineRenderer attackRangeRenderer; // 감지 범위 표시
     
     void Awake()
     {
@@ -27,8 +37,23 @@ public class MonsterController : MonoBehaviour
         {
             _stateMachine = gameObject.AddComponent<StateMachine<MonsterState>>();
         }
+        
+        if (showDetectionRange) ShowDetectionRange();
+        if (showAttackRange) ShowAttackRange();
     }
-    
+
+    void Update()
+    {
+        if (showDetectionRange && detectionRangeRenderer != null)
+        {
+            detectionRangeRenderer.gameObject.SetActive(true);
+        }
+        else if (detectionRangeRenderer != null)
+        {
+            detectionRangeRenderer.gameObject.SetActive(false);
+        }
+    }
+
     void FixedUpdate()
     {
         // ======================= 이동 기능 =======================
@@ -52,7 +77,7 @@ public class MonsterController : MonoBehaviour
     // 다음 목적지로 이동
     public bool MoveToDestination(Vector3 destination)
     {
-        // 현재 위치와 목적지의 Y축을 동일하게 설정하여 Y축을 무시
+        // 현재 위치와 목적지의 Y축을 동일하게 설정하여 Y축을 무시 -> 자꾸 비정상적인 움직임을 보이면서 다음 목적지로 이동 불가능해서 수정
         Vector3 currentPosition = new Vector3(transform.position.x, destination.y, transform.position.z);
         Vector3 direction = destination - currentPosition;
 
@@ -74,16 +99,17 @@ public class MonsterController : MonoBehaviour
         return Vector3.Distance(currentPosition, destination) <= 0.5f;
     }
 
+    // 목적지 도착 시 역순으로 다시 순찰
     private void UpdateDestinationIndex(int resultIndex)
     {
-        if (isReversing)
+        if (isReverse)
         {
             DestinationIndex--;
 
             if (DestinationIndex <= 0) // 첫 목적지에 도달하면 방향을 변경
             {
                 DestinationIndex = 0;
-                isReversing = false;
+                isReverse = false;
             }
         }
         else
@@ -93,40 +119,15 @@ public class MonsterController : MonoBehaviour
             if (DestinationIndex >= PhaseManager.Instance.GetDestinationCount() - 1) // 마지막 목적지에 도달하면 방향을 변경
             {
                 DestinationIndex = PhaseManager.Instance.GetDestinationCount() - 1;
-                isReversing = true;
+                isReverse = true;
             }
         }
     }
     
-    // 다음 목적지로 이동
-    // public bool MoveToDestination(Vector3 destination)
-    // {
-    //     // 현재 위치와 목적지의 Y축을 동일하게 설정하여 Y축을 무시
-    //     Vector3 currentPosition = new Vector3(transform.position.x, destination.y, transform.position.z);
-    //     Vector3 direction = destination - currentPosition;
-    //
-    //     if (direction.sqrMagnitude > 0.01f)
-    //     {
-    //         Vector3 nextPosition = Vector3.MoveTowards(currentPosition, destination, Speed * Time.deltaTime);
-    //         _rigidbody.MovePosition(nextPosition);
-    //
-    //         if (direction != Vector3.zero)
-    //         {
-    //             _rigidbody.MoveRotation(Quaternion.LookRotation(direction.normalized));
-    //         }
-    //     }
-    //     else
-    //     {
-    //         return true; // 다음 목적지로 바로 넘어가도록 처리
-    //     }
-    //
-    //     return Vector3.Distance(currentPosition, destination) <= 0.5f;
-    // }
-    
     // 공격대상 감지
     public GameObject FindTarget()
     {
-        Collider[] findTarget = Physics.OverlapSphere(transform.position, detectionRadius, playerLayer);
+        Collider[] findTarget = Physics.OverlapSphere(transform.position, detectionRange, playerLayer);
 
         if (findTarget.Length > 0)
         {
@@ -135,4 +136,94 @@ public class MonsterController : MonoBehaviour
 
         return null;
     }
+    
+    public void MoveInDirection(Vector3 direction)
+    {
+        Vector3 movement = direction.normalized * Speed * Time.deltaTime;
+        _rigidbody.MovePosition(transform.position + movement);
+    
+        if (direction != Vector3.zero)
+        {
+            transform.rotation = Quaternion.LookRotation(direction);
+        }
+    }
+
+    void ShowDetectionRange()
+    {
+        GameObject rangeObject = new GameObject("DetectionRange");
+        rangeObject.transform.SetParent(transform);
+        rangeObject.transform.localPosition = Vector3.zero;
+
+        detectionRangeRenderer = rangeObject.AddComponent<LineRenderer>();
+        detectionRangeRenderer.useWorldSpace = false;
+        detectionRangeRenderer.startWidth = 0.1f;
+        detectionRangeRenderer.endWidth = 0.1f;
+        detectionRangeRenderer.positionCount = 51;
+        detectionRangeRenderer.material = new Material(Shader.Find("Sprites/Default"));
+        detectionRangeRenderer.startColor = Color.yellow;
+        detectionRangeRenderer.endColor = Color.yellow;
+
+        Vector3[] positions = new Vector3[51];
+        for (int i = 0; i < 51; i++)
+        {
+            float angle = i * (360f / 50) * Mathf.Deg2Rad;
+            positions[i] = new Vector3(Mathf.Sin(angle) * detectionRange, 0.1f, Mathf.Cos(angle) * detectionRange);
+        }
+        detectionRangeRenderer.SetPositions(positions);
+    }
+    
+    void ShowAttackRange()
+    {
+        GameObject rangeObject = new GameObject("AttackRange");
+        rangeObject.transform.SetParent(transform);
+        rangeObject.transform.localPosition = Vector3.zero;
+
+        attackRangeRenderer = rangeObject.AddComponent<LineRenderer>();
+        attackRangeRenderer.useWorldSpace = false;
+        attackRangeRenderer.startWidth = 0.1f;
+        attackRangeRenderer.endWidth = 0.1f;
+        attackRangeRenderer.positionCount = 51;
+        attackRangeRenderer.material = new Material(Shader.Find("Sprites/Default"));
+        attackRangeRenderer.startColor = Color.red;
+        attackRangeRenderer.endColor = Color.red;
+
+        Vector3[] positions = new Vector3[51];
+        for (int i = 0; i < 51; i++)
+        {
+            float angle = i * (360f / 50) * Mathf.Deg2Rad;
+            positions[i] = new Vector3(Mathf.Sin(angle) * attackRange, 0.1f, Mathf.Cos(angle) * attackRange);
+        }
+        attackRangeRenderer.SetPositions(positions);
+    }
 }
+
+
+
+
+
+
+
+// 다음 목적지로 이동
+// public bool MoveToDestination(Vector3 destination)
+// {
+//     // 현재 위치와 목적지의 Y축을 동일하게 설정하여 Y축을 무시
+//     Vector3 currentPosition = new Vector3(transform.position.x, destination.y, transform.position.z);
+//     Vector3 direction = destination - currentPosition;
+//
+//     if (direction.sqrMagnitude > 0.01f)
+//     {
+//         Vector3 nextPosition = Vector3.MoveTowards(currentPosition, destination, Speed * Time.deltaTime);
+//         _rigidbody.MovePosition(nextPosition);
+//
+//         if (direction != Vector3.zero)
+//         {
+//             _rigidbody.MoveRotation(Quaternion.LookRotation(direction.normalized));
+//         }
+//     }
+//     else
+//     {
+//         return true; // 다음 목적지로 바로 넘어가도록 처리
+//     }
+//
+//     return Vector3.Distance(currentPosition, destination) <= 0.5f;
+// }
