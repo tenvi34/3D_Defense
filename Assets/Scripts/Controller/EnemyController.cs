@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class MonsterController : MonoBehaviour
+public class EnemyController : MonoBehaviour
 {
     public int DestinationIndex = 0;
     public float Speed = 5.0f;
     
     private Rigidbody _rigidbody;
-    public StateMachine<MonsterState> _stateMachine;
+    public StateMachine<EnemyState> _stateMachine;
 
     //공격 관련
     public float attackRange = 2.0f; // 공격 범위
@@ -32,10 +32,10 @@ public class MonsterController : MonoBehaviour
     void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        _stateMachine = GetComponent<StateMachine<MonsterState>>();
+        _stateMachine = GetComponent<StateMachine<EnemyState>>();
         if (_stateMachine == null)
         {
-            _stateMachine = gameObject.AddComponent<StateMachine<MonsterState>>();
+            _stateMachine = gameObject.AddComponent<StateMachine<EnemyState>>();
         }
         
         if (showDetectionRange) ShowDetectionRange();

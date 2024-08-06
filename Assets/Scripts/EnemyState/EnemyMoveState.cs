@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MonsterMoveState : VMyState<MonsterState>
+public class EnemyMoveState : VMyState<EnemyState>
 {
-    public override MonsterState StateEnum => MonsterState.Move;
-    private MonsterController _monsterController;
+    public override EnemyState StateEnum => EnemyState.Move;
+    private EnemyController _enemyController;
     private NavMeshAgent _navMeshAgent;
 
     protected override void Awake()
     {
         base.Awake();
-        _monsterController = GetComponent<MonsterController>();
+        _enemyController = GetComponent<EnemyController>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
@@ -28,7 +28,7 @@ public class MonsterMoveState : VMyState<MonsterState>
     protected override void ExcuteState_FixedUpdate()
     {
         // Debug.Log("Move State 실행");
-        GameObject target = _monsterController.FindTarget();
+        GameObject target = _enemyController.FindTarget();
         
         if (target != null)
         {
@@ -38,21 +38,21 @@ public class MonsterMoveState : VMyState<MonsterState>
             
             // 공격 범위 확인
             float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
-            if (distanceToTarget <= _monsterController.attackRange) // 공격 범위에 들어오면
+            if (distanceToTarget <= _enemyController.attackRange) // 공격 범위에 들어오면
             {
-                _monsterController._stateMachine.ChangeState(MonsterState.Attack); // 공격 상태로 전환
+                _enemyController._stateMachine.ChangeState(EnemyState.Attack); // 공격 상태로 전환
             }
         }
         else
         {
             // 감지 범위 밖일 때
-            (int, Vector3) destinationInfo = PhaseManager.Instance.GetDestination(_monsterController.DestinationIndex);
-            _monsterController.DestinationIndex = destinationInfo.Item1;
+            (int, Vector3) destinationInfo = PhaseManager.Instance.GetDestination(_enemyController.DestinationIndex);
+            _enemyController.DestinationIndex = destinationInfo.Item1;
             _navMeshAgent.SetDestination(destinationInfo.Item2);
 
             if (_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance && !_navMeshAgent.pathPending)
             {
-                _monsterController.DestinationIndex++;
+                _enemyController.DestinationIndex++;
             }
         }
     }

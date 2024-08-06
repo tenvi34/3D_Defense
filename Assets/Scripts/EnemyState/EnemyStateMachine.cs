@@ -1,27 +1,27 @@
 using UnityEngine;
 
-public enum MonsterState
+public enum EnemyState
 {
     Move,   // 이동
     Attack, // 공격
 }
 
-public class MonsterStateMachine : StateMachine<MonsterState>
+public class EnemyStateMachine : StateMachine<EnemyState>
 {
     protected override void Start()
     {
         base.Start();
-        ChangeState(MonsterState.Move);
+        ChangeState(EnemyState.Move);
     }
 
     public void TriggerMoveState()
     {
-        ChangeState(MonsterState.Move);
+        ChangeState(EnemyState.Move);
     }
     
     public void TriggerAttackState()
     {
-        ChangeState(MonsterState.Attack);
+        ChangeState(EnemyState.Attack);
     }
     
     // public MonsterState currentState;

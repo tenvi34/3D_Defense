@@ -5,12 +5,12 @@ using BehaviorDesigner.Runtime.Tasks;
 public class GoToDestination : Action
 {
 	private int DestinationIndex;
-	private MonsterController _monster;
+	private EnemyController _enemy;
 	
 	public override void OnAwake()
 	{
 		base.OnAwake();
-		_monster = gameObject.GetComponent<MonsterController>();
+		_enemy = gameObject.GetComponent<EnemyController>();
 	}
 	
 	public override void OnStart()
@@ -22,7 +22,7 @@ public class GoToDestination : Action
 	{
 		(int, Vector3) destinationInfo = PhaseManager.Instance.GetDestination(DestinationIndex);
 		DestinationIndex = destinationInfo.Item1;
-		if (_monster.MoveToDestination(destinationInfo.Item2))
+		if (_enemy.MoveToDestination(destinationInfo.Item2))
 		{
 			DestinationIndex++;
 		}
