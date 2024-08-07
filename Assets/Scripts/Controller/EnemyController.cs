@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
@@ -38,12 +39,14 @@ public class EnemyController : MonoBehaviour
             _stateMachine = gameObject.AddComponent<StateMachine<EnemyState>>();
         }
         
+        // 감지 범위, 공격 범위 표시
         if (showDetectionRange) ShowDetectionRange();
         if (showAttackRange) ShowAttackRange();
     }
-
+    
     void Update()
     {
+        // 감지 범위
         if (showDetectionRange && detectionRangeRenderer != null)
         {
             detectionRangeRenderer.gameObject.SetActive(true);
@@ -51,6 +54,16 @@ public class EnemyController : MonoBehaviour
         else if (detectionRangeRenderer != null)
         {
             detectionRangeRenderer.gameObject.SetActive(false);
+        }
+        
+        // 공격 범위
+        if (showAttackRange && attackRangeRenderer != null)
+        {
+            attackRangeRenderer.gameObject.SetActive(true);
+        }
+        else if (attackRangeRenderer != null)
+        {
+            attackRangeRenderer.gameObject.SetActive(false);
         }
     }
 
@@ -150,6 +163,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    // 감지 범위 표시 생성
     void ShowDetectionRange()
     {
         GameObject rangeObject = new GameObject("DetectionRange");
@@ -174,6 +188,7 @@ public class EnemyController : MonoBehaviour
         detectionRangeRenderer.SetPositions(positions);
     }
     
+    // 공격 범위 표시 생성
     void ShowAttackRange()
     {
         GameObject rangeObject = new GameObject("AttackRange");

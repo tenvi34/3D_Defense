@@ -867,6 +867,7 @@ GameObject:
   - component: {fileID: -2695703829947980649}
   - component: {fileID: 4996957287519243050}
   - component: {fileID: 4289143869648399075}
+  - component: {fileID: -191671898586256517}
   m_Layer: 7
   m_Name: mini simple demo_01
   m_TagString: Untagged
@@ -1054,6 +1055,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-191671898586256517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5436741564957258347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa43c5773d69ae43aee78c57cbb7dd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 100
+  currentHp: 0
+  hpbarPrefab: {fileID: 2141441521603537869, guid: d9ce2ae170ebf764c86828f3c7dcad80,
+    type: 3}
 --- !u!1 &5627010594929708217
 GameObject:
   m_ObjectHideFlags: 0

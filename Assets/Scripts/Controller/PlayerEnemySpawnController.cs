@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MyPlayerController : SceneSingleton<MyPlayerController>
+public class PlayerEnemySpawnController : SceneSingleton<PlayerEnemySpawnController>
 {
     public List<GameObject> Characters = new();
     private Dictionary<int, GameObject> CharacterInstances = new();
@@ -19,7 +19,7 @@ public class MyPlayerController : SceneSingleton<MyPlayerController>
         return instance;
     }
     
-    public GameObject GetNewMonster(Vector3 position, Quaternion rotation)
+    public GameObject GetNewEnemy(Vector3 position, Quaternion rotation)
     {
         // Debug.Log("몬스터 생성");
         GameObject prefab = Monsters[Random.Range(0, Monsters.Count)];

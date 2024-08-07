@@ -20,7 +20,7 @@ public class Phase1_Running  : VMyState<PhaseState>
         for (int i = 0; i < SpawnMonsterCount; ++i)
         {
             Debug.Log((i + 1) + "번째 몬스터 소환");
-            MyPlayerController.Instance.GetNewMonster(transform.position, Quaternion.LookRotation(Vector3.right));
+            PlayerEnemySpawnController.Instance.GetNewEnemy(transform.position, Quaternion.LookRotation(Vector3.right));
             yield return new WaitForSeconds(Interval);
         }
     }
