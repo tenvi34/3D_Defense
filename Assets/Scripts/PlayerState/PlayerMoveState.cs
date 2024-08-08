@@ -6,6 +6,9 @@ public class PlayerMoveState : VMyState<PlayerState>
 {
     public override PlayerState StateEnum => PlayerState.Move;
     private PlayerController _playerController;
+    private Vector3 _destination;
+    private float speed = 5f;
+    private bool isMove = false;
 
     protected override void Awake()
     {
@@ -20,6 +23,10 @@ public class PlayerMoveState : VMyState<PlayerState>
     
     protected override void ExcuteState()
     {
+        if (isMove)
+        {
+            MoveToClickPosition();
+        }
     }
 
     protected override void ExcuteState_FixedUpdate()
@@ -33,5 +40,26 @@ public class PlayerMoveState : VMyState<PlayerState>
     protected override void ExitState()
     {
         // Debug.Log("Player Move State 종료");
+    }
+
+    public void StartMove(Vector3 destination)
+    {
+        _destination = destination;
+        isMove = true;
+        EnterState();
+    }
+
+    private void MoveToClickPosition()
+    {
+        if (Vector3.Distance(transform.position, _destination) > 0.1f)
+        {
+            Vector3 direction = (_destination - transform.position).normalized;
+            transform.position += direction * (speed * Time.deltaTime);
+        }
+        else
+        {
+            isMove = false;
+            ExitState();
+        }
     }
 }

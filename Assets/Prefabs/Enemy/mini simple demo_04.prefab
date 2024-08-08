@@ -51,6 +51,7 @@ GameObject:
   - component: {fileID: 7078377591537785164}
   - component: {fileID: 7957933358879656589}
   - component: {fileID: -4063380027531552684}
+  - component: {fileID: -1623778163251123622}
   m_Layer: 7
   m_Name: mini simple demo_04
   m_TagString: Untagged
@@ -174,10 +175,12 @@ MonoBehaviour:
   _stateMachine: {fileID: 7187054963736769139, guid: 5579de7f11a9f504e992ebed6dc0aebc,
     type: 3}
   attackRange: 2
-  detectionRadius: 20
+  detectionRange: 5
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
+  showDetectionRange: 1
+  showAttackRange: 1
 --- !u!114 &1047456148914125535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,6 +241,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-1623778163251123622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360020996318003118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa43c5773d69ae43aee78c57cbb7dd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 100
+  currentHp: 0
+  hpbarPrefab: {fileID: 2141441521603537869, guid: d9ce2ae170ebf764c86828f3c7dcad80,
+    type: 3}
 --- !u!1 &433692469389401108
 GameObject:
   m_ObjectHideFlags: 0

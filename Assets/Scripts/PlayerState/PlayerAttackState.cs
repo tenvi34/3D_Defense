@@ -2,17 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttackState : MonoBehaviour
+public class PlayerAttackState : VMyState<PlayerState>
 {
-    // Start is called before the first frame update
-    void Start()
+    public override PlayerState StateEnum => PlayerState.Attack;
+    private PlayerController _playerController;
+
+    protected override void Awake()
     {
-        
+        base.Awake();
+        _playerController = GetComponent<PlayerController>();
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void EnterState()
     {
-        
+        // Debug.Log("Player Attack State 접근");
+    }
+    
+    protected override void ExcuteState()
+    {
+    }
+
+    protected override void ExcuteState_FixedUpdate()
+    {
+    }
+
+    protected override void ExcuteState_LateUpdate()
+    {
+    }
+
+    protected override void ExitState()
+    {
+        // Debug.Log("Player Attack State 종료");
     }
 }
