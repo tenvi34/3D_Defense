@@ -30,6 +30,10 @@ public class EnemyController : MonoBehaviour
     public bool showAttackRange = true; // 표시 여부
     private LineRenderer attackRangeRenderer; // 감지 범위 표시
     
+    // 선택 관련
+    public GameObject selectMarker;
+    private bool isSelect = false;
+    
     void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -42,6 +46,9 @@ public class EnemyController : MonoBehaviour
         // 감지 범위, 공격 범위 표시
         if (showDetectionRange) ShowDetectionRange();
         if (showAttackRange) ShowAttackRange();
+        
+        // 선택 마커
+        if (selectMarker != null) selectMarker.SetActive(false);
     }
     
     void Update()
@@ -211,6 +218,18 @@ public class EnemyController : MonoBehaviour
             positions[i] = new Vector3(Mathf.Sin(angle) * attackRange, 0.1f, Mathf.Cos(angle) * attackRange);
         }
         attackRangeRenderer.SetPositions(positions);
+    }
+
+    public void Select()
+    {
+        isSelect = true;
+        if (selectMarker != null) selectMarker.SetActive(true);
+    }
+
+    public void Deselect()
+    {
+        isSelect = false;
+        if (selectMarker != null) selectMarker.SetActive(false);
     }
 }
 

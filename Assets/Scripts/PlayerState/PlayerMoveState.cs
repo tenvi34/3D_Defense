@@ -53,8 +53,13 @@ public class PlayerMoveState : VMyState<PlayerState>
     {
         if (Vector3.Distance(transform.position, _destination) > 0.1f)
         {
+            // 방향
             Vector3 direction = (_destination - transform.position).normalized;
             transform.position += direction * (speed * Time.deltaTime);
+            
+            // 클릭한 지점을 바라보도록
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f); // Time.deltaTime * 10f -> 회전속도
         }
         else
         {
