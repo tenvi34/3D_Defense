@@ -87,7 +87,7 @@ public class EnemyAttackState : VMyState<EnemyState>
     {
         // Debug.Log("공격 상태 종료");
         // StopAllCoroutines();
-        // currentTarget = null;
+        currentTarget = null;
     }
     
     public T GetEnumValue<T>() where T : System.Enum

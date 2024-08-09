@@ -59,26 +59,6 @@ public class PlayerAttackState : VMyState<PlayerState>
 
     protected override void ExcuteState_FixedUpdate()
     {
-        // if (currentTarget == null || !currentTarget.IsAlive())
-        // {
-        //     _playerController.StateMachine.ChangeState(PlayerState.Move);
-        //     return;
-        // }
-        //
-        // float distance = Vector3.Distance(transform.position, currentTarget.GetTransform().position);
-        //
-        // if (distance <= _playerController.AttackRange)
-        // {
-        //     if (canAttack)
-        //     {
-        //         PerformAttackSync().Forget();
-        //     }
-        // }
-        // else
-        // {
-        //     Vector3 direction = (currentTarget.GetTransform().position - transform.position).normalized;
-        //     _playerController.MoveInDirection(direction);
-        // }
     }
 
     protected override void ExcuteState_LateUpdate()

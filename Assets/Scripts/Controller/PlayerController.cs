@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Interface;
 using Management;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour, IAttack
 {
