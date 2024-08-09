@@ -49,6 +49,7 @@ public class PlayerMoveState : VMyState<PlayerState>
         EnterState();
     }
 
+    // 클릭한 지점으로 이동
     private void MoveToClickPosition()
     {
         if (Vector3.Distance(transform.position, _destination) > 0.1f)

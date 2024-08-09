@@ -1397,6 +1397,7 @@ GameObject:
   - component: {fileID: -7551002594955225059}
   - component: {fileID: -7099083440101098427}
   - component: {fileID: -8814688838462537597}
+  - component: {fileID: -4796406898129442393}
   m_Layer: 6
   m_Name: mini_Kid
   m_TagString: Player
@@ -1512,6 +1513,36 @@ MonoBehaviour:
   currentHp: 0
   hpbarPrefab: {fileID: 2141441521603537869, guid: d9ce2ae170ebf764c86828f3c7dcad80,
     type: 3}
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -2783607181853804526}
+        m_TargetAssemblyTypeName: HpScript, Assembly-CSharp
+        m_MethodName: HandlePlayerDeath
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnHpChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -2783607181853804526}
+        m_TargetAssemblyTypeName: HpScript, Assembly-CSharp
+        m_MethodName: HandleHpChanged
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &-7551002594955225059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1538,6 +1569,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectMarker: {fileID: 9132585650350309347}
+  moveSpeed: 5
+  attackRange: 2
+  attackDamage: 10
+  OnAttackPerformed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9200417707930478897}
+        m_TargetAssemblyTypeName: VMyState`1[[PlayerState, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &-8814688838462537597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1550,6 +1599,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15e476fb5aec0164c9aece739c6ae4e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-4796406898129442393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9200417707930478897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a60183ed4d5327a4aaf30e4a212c04ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackCoolTime: 2
 --- !u!1001 &7060871094625641961
 PrefabInstance:
   m_ObjectHideFlags: 0

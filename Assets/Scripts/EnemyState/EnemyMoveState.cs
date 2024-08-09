@@ -33,7 +33,7 @@ public class EnemyMoveState : VMyState<EnemyState>
         if (target != null)
         {
             // 감지 범위에 플레이어가 들어오면 플레이어로 이동
-            Debug.Log("플레이어 발견");
+            // Debug.Log("플레이어 발견");
             _navMeshAgent.SetDestination(target.transform.position);
             
             // 공격 범위 확인

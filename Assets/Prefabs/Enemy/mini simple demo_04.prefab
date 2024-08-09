@@ -175,12 +175,13 @@ MonoBehaviour:
   _stateMachine: {fileID: 7187054963736769139, guid: 5579de7f11a9f504e992ebed6dc0aebc,
     type: 3}
   attackRange: 2
-  detectionRange: 5
+  detectionRange: 3
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
   showDetectionRange: 1
   showAttackRange: 1
+  selectMarker: {fileID: 0}
 --- !u!114 &1047456148914125535
 MonoBehaviour:
   m_ObjectHideFlags: 0

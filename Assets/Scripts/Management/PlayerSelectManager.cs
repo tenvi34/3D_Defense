@@ -1,48 +1,80 @@
 using System.Collections;
 using System.Collections.Generic;
+using Interface;
 using UnityEngine;
 
 public class PlayerSelectManager : MonoBehaviour
 {
+    // 플레이어 선택
     private PlayerController _selectPlayer;
     
     void Update()
     {
-        MovePlayer();
+        PlayerMouseClick();
     }
 
-    private void MovePlayer()
+    private void PlayerMouseClick()
     {
-        if (Input.GetMouseButtonDown(0)) // 좌클릭으로 플레이어 선택
+        if (Input.GetMouseButtonDown(0))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit raycastHit;
+            // 플레이어 선택
+            HandleLeftClick();
+        }
+        else if (Input.GetMouseButtonDown(1) && _selectPlayer != null)
+        {
+            // 플레이어 이동
+            HandleRightClick();
+        }
+    }
 
-            if (Physics.Raycast(ray, out raycastHit))
+    // 좌클릭
+    private void HandleLeftClick()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit raycastHit;
+
+        if (Physics.Raycast(ray, out raycastHit))
+        {
+            if (raycastHit.collider.CompareTag("Player"))
             {
-                if (raycastHit.collider.CompareTag("Player"))
+                SelectPlayer(raycastHit.collider.GetComponent<PlayerController>());
+            }
+            else
+            {
+                DeselectPlayer();
+            }
+        }
+        else
+        {
+            DeselectPlayer();
+        }
+    }
+
+    // 우클릭
+    private void HandleRightClick()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit raycastHit;
+
+        if (Physics.Raycast(ray, out raycastHit))
+        {
+            if (raycastHit.collider.CompareTag("Enemy"))
+            {
+                IAttack target = raycastHit.collider.GetComponent<IAttack>();
+                if (target != null)
                 {
-                    SelectPlayer(raycastHit.collider.GetComponent<PlayerController>());
+                    _selectPlayer.SetAttackTarget(target);
+                    _selectPlayer.ChaseTarget(target.GetTransform());
+                    Debug.Log("타켓 추격 시작");
                 }
                 else
                 {
-                    // 선택 해제
-                    DeselectPlayer();
+                    // 다른 방법 고민 중...
                 }
             }
             else
             {
-                // 선택 해제
-                DeselectPlayer();
-            }
-        }
-        else if (Input.GetMouseButtonDown(1) && _selectPlayer != null) // 선택된 플레이어로 이동하고싶은 위치 우클릭 했을 때
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit raycastHit;
-
-            if (Physics.Raycast(ray, out raycastHit))
-            {
+                // 선택한 지점으로 이동
                 _selectPlayer.MoveToPoint(raycastHit.point);
             }
         }

@@ -1,11 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Interface;
+using Management;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour, IAttack
 {
     public int DestinationIndex = 0;
     public float Speed = 5.0f;
@@ -15,9 +18,12 @@ public class EnemyController : MonoBehaviour
 
     //공격 관련
     public float attackRange = 2.0f; // 공격 범위
-    public float detectionRange = 5.0f; // 플레이어 감지 범위
+    public float detectionRange = 3.0f; // 플레이어 감지 범위
     public LayerMask playerLayer; // 플레이어 레이어
-    private GameObject currentTarget;
+    private GameObject currentTarget; // 공격 대상
+    [SerializeField] private float attackDamage = 5f; // 공격 데미지
+
+    private HpScript _hpScript;
     
     // 목적지 이동
     private bool isReverse = false; // Destination 역순으로
@@ -49,6 +55,9 @@ public class EnemyController : MonoBehaviour
         
         // 선택 마커
         if (selectMarker != null) selectMarker.SetActive(false);
+        
+        // HP 스크립트
+        _hpScript = GetComponent<HpScript>();
     }
     
     void Update()
@@ -169,6 +178,17 @@ public class EnemyController : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(direction);
         }
     }
+    
+    public void PerformAttack(IAttack target)
+    {
+        AttackSystem.PerformAttack(this, target, attackDamage);
+        OnAttackPerformed();
+    }
+    
+    private void OnAttackPerformed()
+    {
+        // 사운드 또는 파티클 추가
+    }
 
     // 감지 범위 표시 생성
     void ShowDetectionRange()
@@ -231,6 +251,12 @@ public class EnemyController : MonoBehaviour
         isSelect = false;
         if (selectMarker != null) selectMarker.SetActive(false);
     }
+    
+    public void TakeDamage(float damage) => _hpScript.TakeDamage(damage);
+    public float GetHealth() => _hpScript.GetCurrentHp();
+    public bool IsAlive() => _hpScript.IsAlive();
+    public Transform GetTransform() => transform;
+    public HpScript GetHpScript() => _hpScript;
 }
 
 

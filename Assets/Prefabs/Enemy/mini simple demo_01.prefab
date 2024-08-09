@@ -990,7 +990,7 @@ MonoBehaviour:
   Speed: 5
   _stateMachine: {fileID: 7187054963736769139}
   attackRange: 2
-  detectionRange: 5
+  detectionRange: 3
   playerLayer:
     serializedVersion: 2
     m_Bits: 64

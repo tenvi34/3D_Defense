@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class HpScript : MonoBehaviour
@@ -10,6 +11,9 @@ public class HpScript : MonoBehaviour
     public GameObject hpbarPrefab;
     private GameObject hpbarInstance;
     private Slider hpSlider;
+    
+    public float GetCurrentHp() => currentHp;
+    public bool IsAlive() => currentHp > 0;
 
     void Awake()
     {
