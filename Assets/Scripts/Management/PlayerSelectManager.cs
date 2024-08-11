@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using Interface;
 using UnityEngine;
 
 public class PlayerSelectManager : MonoBehaviour
 {
-    // 플레이어 선택
     private PlayerController _selectPlayer;
     
     void Update()
@@ -17,17 +14,14 @@ public class PlayerSelectManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            // 플레이어 선택
             HandleLeftClick();
         }
         else if (Input.GetMouseButtonDown(1) && _selectPlayer != null)
         {
-            // 플레이어 이동
             HandleRightClick();
         }
     }
 
-    // 좌클릭
     private void HandleLeftClick()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -50,7 +44,6 @@ public class PlayerSelectManager : MonoBehaviour
         }
     }
 
-    // 우클릭
     private void HandleRightClick()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -64,23 +57,22 @@ public class PlayerSelectManager : MonoBehaviour
                 if (target != null)
                 {
                     _selectPlayer.SetAttackTarget(target);
-                    _selectPlayer.ChaseTarget(target.GetTransform());
-                    Debug.Log("타켓 추격 시작");
+                    Debug.Log("적 타겟 지정 및 공격 시작");
                 }
                 else
                 {
-                    // 다른 방법 고민 중...
+                    
                 }
             }
             else
             {
-                // 선택한 지점으로 이동
+                // 공격 중이어도 다른 지점 클릭 시 이동
                 _selectPlayer.MoveToPoint(raycastHit.point);
+                Debug.Log("새로운 위치로 이동");
             }
         }
     }
 
-    // 플레이어 선택
     private void SelectPlayer(PlayerController player)
     {
         if (_selectPlayer != null)
@@ -91,7 +83,6 @@ public class PlayerSelectManager : MonoBehaviour
         _selectPlayer.Select();
     }
 
-    // 플레이어 선택 해제
     private void DeselectPlayer()
     {
         if (_selectPlayer != null)

@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Interface;
 using UnityEngine;
@@ -43,7 +41,7 @@ public class EnemyAttackState : VMyState<EnemyState>
         
         float distance = Vector3.Distance(transform.position, currentTarget.GetTransform().position);
         
-        if (distance <= _enemyController.attackRange)
+        if (distance <= _enemyController.AttackRange)
         {
             // 공격 범위 안에 있으면 공격
             if (canAttack)
@@ -52,7 +50,7 @@ public class EnemyAttackState : VMyState<EnemyState>
                 PerformAttackAsync().Forget();
             }
         }
-        else if (distance <= _enemyController.detectionRange)
+        else if (distance <= _enemyController.DetectionRange)
         {
             // 감지 범위 안에 있지만 공격 범위 밖이면 플레이어를 향해 이동
             Vector3 directionToTarget = (currentTarget.GetTransform().position - transform.position).normalized;
@@ -65,14 +63,14 @@ public class EnemyAttackState : VMyState<EnemyState>
         }
     }
 
-    private IEnumerator Attack(GameObject target)
-    {
-        Debug.Log(target + "에게 공격 시도");
-        canAttack = false;
-
-        yield return new WaitForSeconds(attackCoolTime);
-        canAttack = true;
-    }
+    // private IEnumerator Attack(GameObject target)
+    // {
+    //     Debug.Log(target + "에게 공격 시도");
+    //     canAttack = false;
+    //
+    //     yield return new WaitForSeconds(attackCoolTime);
+    //     canAttack = true;
+    // }
     
     private async UniTaskVoid PerformAttackAsync()
     {

@@ -1,12 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Interface;
 using Management;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour, IAttack
 {
@@ -17,12 +11,15 @@ public class EnemyController : MonoBehaviour, IAttack
     public StateMachine<EnemyState> _stateMachine;
 
     //공격 관련
-    public float attackRange = 2.0f; // 공격 범위
-    public float detectionRange = 3.0f; // 플레이어 감지 범위
-    public LayerMask playerLayer; // 플레이어 레이어
-    private GameObject currentTarget; // 공격 대상
+    [SerializeField] private float attackRange = 2.0f; // 공격 범위
     [SerializeField] private float attackDamage = 5f; // 공격 데미지
-
+    [SerializeField] private LayerMask playerLayer; // 플레이어 레이어
+    [SerializeField] private float detectionRange = 3.0f; // 플레이어 감지 범위
+    private GameObject currentTarget; // 공격 대상
+    
+    public float AttackRange => attackRange;
+    public float DetectionRange => detectionRange;
+    
     private HpScript _hpScript;
     
     // 목적지 이동

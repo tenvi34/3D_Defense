@@ -1513,36 +1513,6 @@ MonoBehaviour:
   currentHp: 0
   hpbarPrefab: {fileID: 2141441521603537869, guid: d9ce2ae170ebf764c86828f3c7dcad80,
     type: 3}
-  OnDeath:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: -2783607181853804526}
-        m_TargetAssemblyTypeName: HpScript, Assembly-CSharp
-        m_MethodName: HandlePlayerDeath
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnHpChanged:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: -2783607181853804526}
-        m_TargetAssemblyTypeName: HpScript, Assembly-CSharp
-        m_MethodName: HandleHpChanged
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &-7551002594955225059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1572,21 +1542,10 @@ MonoBehaviour:
   moveSpeed: 5
   attackRange: 2
   attackDamage: 10
-  OnAttackPerformed:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 9200417707930478897}
-        m_TargetAssemblyTypeName: VMyState`1[[PlayerState, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  detectionRange: 3
 --- !u!114 &-8814688838462537597
 MonoBehaviour:
   m_ObjectHideFlags: 0

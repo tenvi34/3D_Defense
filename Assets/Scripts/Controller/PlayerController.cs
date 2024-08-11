@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using Interface;
 using Management;
 using UnityEngine;
@@ -9,22 +7,27 @@ public class PlayerController : MonoBehaviour, IAttack
 {
     private PlayerMoveState _moveState;
     private Animator _animator;
+    private HpScript _hpScript;
     public GameObject selectMarker;
     
     private bool isSelect = false;
     
+    // 애니메이터 캐싱
     private static readonly int Walk = Animator.StringToHash("Walk");
+    private static readonly int Attack = Animator.StringToHash("Attack");
     
     // 공격 관련
     public StateMachine<PlayerState> StateMachine { get; private set; }
     public IAttack CurrentTarget { get; private set; }
-    [SerializeField] private float moveSpeed = 5f; // 이동 속도
-    [SerializeField] private float attackRange = 2f; // 공격 범위
-    [SerializeField] private float attackDamage = 10f; // 공격 데미지
+    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float attackRange = 2f;
+    [SerializeField] private float attackDamage = 10f;
+    [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private float detectionRange = 3f;
 
     public float AttackRange => attackRange;
 
-    private HpScript _hpScript;
+    private Coroutine currentAction;
 
     private void Awake()
     {
@@ -39,83 +42,157 @@ public class PlayerController : MonoBehaviour, IAttack
     {
         isSelect = true;
         if (selectMarker != null) selectMarker.SetActive(true);
-        WalkAnim(true);
     }
 
     public void Deselect()
     {
         isSelect = false;
         if (selectMarker != null) selectMarker.SetActive(false);
-        WalkAnim(false);
     }
     
-    // 선택한 지점으로 이동
     public void MoveToPoint(Vector3 destination)
     {
-        // Debug.Log("목표로 이동");
-        _moveState.StartMove(destination);
+        StopCurrentAction();
+        currentAction = StartCoroutine(MoveCoroutine(destination));
     }
 
-    public void WalkAnim(bool isWalk)
+    private IEnumerator MoveCoroutine(Vector3 destination)
     {
-        _animator.SetBool(Walk, isWalk);
+        WalkAnim(true);
+        while (Vector3.Distance(transform.position, destination) > 0.1f)
+        {
+            Vector3 direction = (destination - transform.position).normalized;
+            MoveInDirection(direction);
+            yield return null;
+        }
+        WalkAnim(false);
+        StateMachine.ChangeState(PlayerState.Move);
     }
 
-    // 목적지로 이동
     public void MoveInDirection(Vector3 direction)
     {
         transform.position += direction * (moveSpeed * Time.deltaTime);
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * 10f);
     }
 
-    // 공격대상 지정
+    private void WalkAnim(bool isWalk)
+    {
+        _animator.SetBool(Walk, isWalk);
+    }
+
+    private void AttackAnim(bool isAttack)
+    {
+        _animator.SetBool(Attack, isAttack);
+    }
+
     public void SetAttackTarget(IAttack target)
     {
+        StopCurrentAction();
         CurrentTarget = target;
-        PlayerAttackState attackState = GetComponent<PlayerAttackState>();
-        if (attackState != null)
+        if (target != null)
         {
-            attackState.SetTarget(target);
-            // 공격 상태로 전환
-            StateMachine.ChangeState(PlayerState.Attack);
+            currentAction = StartCoroutine(AttackCoroutine(target));
         }
+    }
+    
+    private IEnumerator AttackCoroutine(IAttack target)
+    {
+        while (target != null && target.IsAlive())
+        {
+            float distance = Vector3.Distance(transform.position, target.GetTransform().position);
+            if (distance > attackRange)
+            {
+                Vector3 direction = (target.GetTransform().position - transform.position).normalized;
+                MoveInDirection(direction);
+                WalkAnim(true);
+            }
+            else
+            {
+                WalkAnim(false);
+                PerformAttack(target);
+                yield return new WaitForSeconds(1f); // 공격 쿨타임
+            }
+            yield return null;
+        }
+        
+        Debug.Log("적 처치");
+        CurrentTarget = null;
+        StateMachine.ChangeState(PlayerState.Move);
+        WalkAnim(false);
+        AttackAnim(false);
     }
     
     public void PerformAttack(IAttack target)
     {
         AttackSystem.PerformAttack(this, target, attackDamage);
         OnAttackPerformed();
+        
+        // 공격 후 타겟의 상태 확인
+        if (target == null || !target.IsAlive())
+        {
+            Debug.Log("적 처치, Move 상태로 전환");
+            StopCurrentAction();
+            StateMachine.ChangeState(PlayerState.Move);
+        }
     }
     
     private void OnAttackPerformed()
     {
         Debug.Log("플레이어 공격 수행");
+        AttackAnim(true);
         // 사운드 또는 파티클 추가
     }
 
-    // 적을 우클릭으로 지정해서 해당 적을 추격
-    public void ChaseTarget(Transform target)
+    public IAttack FindNearestEnemy()
     {
-        StopCurrentMove();
-        StartCoroutine(ChaseCoroutine(target));
-    }
-    
-    private void StopCurrentMove() => StopAllCoroutines();
+        Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRange, enemyLayer);
+        IAttack nearestEnemy = null;
+        float nearestDistance = float.MaxValue;
 
-    private IEnumerator ChaseCoroutine(Transform target)
-    {
-        while (target !=null && Vector3.Distance(transform.position, target.position) > attackRange)
+        foreach (Collider collider in colliders)
         {
-            Vector3 direction = (target.position - transform.position).normalized;
-            MoveInDirection(direction);
-            yield return null;
+            IAttack enemy = collider.GetComponent<IAttack>();
+            if (enemy != null && enemy.IsAlive())
+            {
+                float distance = Vector3.Distance(transform.position, collider.transform.position);
+                if (distance < nearestDistance)
+                {
+                    nearestEnemy = enemy;
+                    nearestDistance = distance;
+                }
+            }
         }
-        
-        // 적을 따라잡으면 공격 상태로 전환
-        StateMachine.ChangeState(PlayerState.Attack);
+
+        return nearestEnemy;
+    }
+
+    private void StopCurrentAction()
+    {
+        if (currentAction != null)
+        {
+            StopCoroutine(currentAction);
+            currentAction = null;
+        }
+        WalkAnim(false);
+        AttackAnim(false);
+        CurrentTarget = null;
     }
     
-    public void TakeDamage(float damage) => _hpScript.TakeDamage(damage);
+    public void TakeDamage(float damage)
+    {
+        _hpScript.TakeDamage(damage);
+        
+        // 공격받았을 때 자동으로 반격
+        if (CurrentTarget == null)
+        {
+            IAttack attacker = FindNearestEnemy();
+            if (attacker != null)
+            {
+                SetAttackTarget(attacker);
+            }
+        }
+    }
+
     public float GetHealth() => _hpScript.GetCurrentHp();
     public bool IsAlive() => _hpScript.IsAlive();
     public Transform GetTransform() => transform;

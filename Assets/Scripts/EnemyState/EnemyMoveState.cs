@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -38,7 +36,7 @@ public class EnemyMoveState : VMyState<EnemyState>
             
             // 공격 범위 확인
             float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
-            if (distanceToTarget <= _enemyController.attackRange) // 공격 범위에 들어오면
+            if (distanceToTarget <= _enemyController.AttackRange) // 공격 범위에 들어오면
             {
                 _enemyController._stateMachine.ChangeState(EnemyState.Attack); // 공격 상태로 전환
             }
