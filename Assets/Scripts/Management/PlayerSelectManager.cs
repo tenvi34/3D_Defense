@@ -57,18 +57,14 @@ public class PlayerSelectManager : MonoBehaviour
                 if (target != null)
                 {
                     _selectPlayer.SetAttackTarget(target);
-                    Debug.Log("적 타겟 지정 및 공격 시작");
-                }
-                else
-                {
-                    
+                    // Debug.Log("적 타겟 지정 및 공격 시작");
                 }
             }
             else
             {
                 // 공격 중이어도 다른 지점 클릭 시 이동
                 _selectPlayer.MoveToPoint(raycastHit.point);
-                Debug.Log("새로운 위치로 이동");
+                // Debug.Log("새로운 위치로 이동");
             }
         }
     }

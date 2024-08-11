@@ -38,18 +38,21 @@ public class PlayerController : MonoBehaviour, IAttack
         _hpScript = GetComponent<HpScript>();
     }
 
+    // 플레이어 선택
     public void Select()
     {
         isSelect = true;
         if (selectMarker != null) selectMarker.SetActive(true);
     }
 
+    // 플레이어 선택 해제
     public void Deselect()
     {
         isSelect = false;
         if (selectMarker != null) selectMarker.SetActive(false);
     }
     
+    // 선택한 지점으로 이동 //
     public void MoveToPoint(Vector3 destination)
     {
         StopCurrentAction();
@@ -74,17 +77,21 @@ public class PlayerController : MonoBehaviour, IAttack
         transform.position += direction * (moveSpeed * Time.deltaTime);
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * 10f);
     }
+    // ==================== //
 
+    // 걷기 애니메이션
     private void WalkAnim(bool isWalk)
     {
         _animator.SetBool(Walk, isWalk);
     }
-
+    
+    // 공격 애니메이션
     private void AttackAnim(bool isAttack)
     {
         _animator.SetBool(Attack, isAttack);
     }
 
+    // 타겟 설정
     public void SetAttackTarget(IAttack target)
     {
         StopCurrentAction();
@@ -95,6 +102,7 @@ public class PlayerController : MonoBehaviour, IAttack
         }
     }
     
+    // 공격 기능 담당
     private IEnumerator AttackCoroutine(IAttack target)
     {
         while (target != null && target.IsAlive())
@@ -115,7 +123,7 @@ public class PlayerController : MonoBehaviour, IAttack
             yield return null;
         }
         
-        Debug.Log("적 처치");
+        // Debug.Log("적 처치");
         CurrentTarget = null;
         StateMachine.ChangeState(PlayerState.Move);
         WalkAnim(false);
@@ -130,7 +138,7 @@ public class PlayerController : MonoBehaviour, IAttack
         // 공격 후 타겟의 상태 확인
         if (target == null || !target.IsAlive())
         {
-            Debug.Log("적 처치, Move 상태로 전환");
+            // Debug.Log("적 처치, Move 상태로 전환");
             StopCurrentAction();
             StateMachine.ChangeState(PlayerState.Move);
         }
@@ -138,16 +146,18 @@ public class PlayerController : MonoBehaviour, IAttack
     
     private void OnAttackPerformed()
     {
-        Debug.Log("플레이어 공격 수행");
+        // Debug.Log("플레이어 공격 수행");
         AttackAnim(true);
         // 사운드 또는 파티클 추가
+        
     }
 
-    public IAttack FindNearestEnemy()
+    // 자동으로 적 탐지
+    public IAttack FindEnemy()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRange, enemyLayer);
-        IAttack nearestEnemy = null;
-        float nearestDistance = float.MaxValue;
+        IAttack findEnemy = null;
+        float enemyDistance = float.MaxValue;
 
         foreach (Collider collider in colliders)
         {
@@ -155,15 +165,15 @@ public class PlayerController : MonoBehaviour, IAttack
             if (enemy != null && enemy.IsAlive())
             {
                 float distance = Vector3.Distance(transform.position, collider.transform.position);
-                if (distance < nearestDistance)
+                if (distance < enemyDistance)
                 {
-                    nearestEnemy = enemy;
-                    nearestDistance = distance;
+                    findEnemy = enemy;
+                    enemyDistance = distance;
                 }
             }
         }
 
-        return nearestEnemy;
+        return findEnemy;
     }
 
     private void StopCurrentAction()
@@ -178,14 +188,15 @@ public class PlayerController : MonoBehaviour, IAttack
         CurrentTarget = null;
     }
     
+    // 데미지 계산
     public void TakeDamage(float damage)
     {
         _hpScript.TakeDamage(damage);
         
-        // 공격받았을 때 자동으로 반격
+        // 공격받았을 때 자동으로 공격상태로 전환
         if (CurrentTarget == null)
         {
-            IAttack attacker = FindNearestEnemy();
+            IAttack attacker = FindEnemy();
             if (attacker != null)
             {
                 SetAttackTarget(attacker);
