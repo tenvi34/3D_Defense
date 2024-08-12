@@ -6,7 +6,8 @@ public class EnemyController : MonoBehaviour, IAttack
 {
     public int DestinationIndex = 0;
     public float Speed = 5.0f;
-    
+
+    private Animator _animator;
     private Rigidbody _rigidbody;
     public StateMachine<EnemyState> _stateMachine;
 
@@ -37,8 +38,12 @@ public class EnemyController : MonoBehaviour, IAttack
     public GameObject selectMarker;
     private bool isSelect = false;
     
+    // 애니메이터 캐싱
+    private static readonly int Attack = Animator.StringToHash("Attack");
+
     void Awake()
     {
+        _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
         _stateMachine = GetComponent<StateMachine<EnemyState>>();
         if (_stateMachine == null)
@@ -184,7 +189,13 @@ public class EnemyController : MonoBehaviour, IAttack
     
     private void OnAttackPerformed()
     {
+        AttackAnim(true);
         // 사운드 또는 파티클 추가
+    }
+
+    private void AttackAnim(bool isAttack)
+    {
+        _animator.SetBool(Attack, isAttack);
     }
 
     // 감지 범위 표시 생성
