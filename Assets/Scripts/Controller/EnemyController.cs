@@ -172,7 +172,7 @@ public class EnemyController : MonoBehaviour, IAttack
     
     public void MoveInDirection(Vector3 direction)
     {
-        Vector3 movement = direction.normalized * Speed * Time.deltaTime;
+        Vector3 movement = direction.normalized * (Speed * Time.deltaTime);
         _rigidbody.MovePosition(transform.position + movement);
     
         if (direction != Vector3.zero)
@@ -191,6 +191,7 @@ public class EnemyController : MonoBehaviour, IAttack
     {
         AttackAnim(true);
         // 사운드 또는 파티클 추가
+        
     }
 
     private void AttackAnim(bool isAttack)
