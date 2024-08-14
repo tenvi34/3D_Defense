@@ -990,10 +990,11 @@ MonoBehaviour:
   Speed: 5
   _stateMachine: {fileID: 7187054963736769139}
   attackRange: 2
-  detectionRange: 3
+  attackDamage: 5
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
+  detectionRange: 3
   showDetectionRange: 1
   showAttackRange: 1
   selectMarker: {fileID: 1816844070487318475}
@@ -1071,7 +1072,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 100
   currentHp: 0
-  hpbarPrefab: {fileID: 2141441521603537869, guid: d9ce2ae170ebf764c86828f3c7dcad80,
+  healthBarPrefab: {fileID: 7885945034577748080, guid: fe24e6ef5b9d23649ba9c2ad7d0d370f,
     type: 3}
 --- !u!1 &5627010594929708217
 GameObject:

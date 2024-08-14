@@ -1708,7 +1708,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 100
   currentHp: 0
-  hpbarPrefab: {fileID: 2141441521603537869, guid: d9ce2ae170ebf764c86828f3c7dcad80,
+  healthBarPrefab: {fileID: 7885945034577748080, guid: fe24e6ef5b9d23649ba9c2ad7d0d370f,
     type: 3}
 --- !u!1 &6695827981341127295
 GameObject:

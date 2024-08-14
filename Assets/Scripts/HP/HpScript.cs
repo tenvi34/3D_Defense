@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,79 +5,93 @@ public class HpScript : MonoBehaviour
 {
     public float maxHp = 100f;
     public float currentHp;
-    public GameObject hpbarPrefab;
-    private GameObject hpbarInstance;
-    private Slider hpSlider;
+    public GameObject healthBarPrefab;
+    private GameObject healthBarObject;
+    private RectTransform foregroundBar;
+    private Image foregroundImage;
+    private RectTransform backgroundBar;
     
     public float GetCurrentHp() => currentHp;
     public bool IsAlive() => currentHp > 0;
 
-    void Awake()
+    void Start()
     {
         currentHp = maxHp;
-        ShowHpBar();
+        CreateHealthBar();
     }
 
-    void Update()
+    void LateUpdate()
     {
-        UpdateHpBarPosition();
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            TakeDamage(10f);
-            Debug.Log("체력 감소");
-        }
+        UpdateHealthBarPosition();
+        
+        // 테스트
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     TakeDamage(10f);
+        //     Debug.Log("체력 감소");
+        // }
     }
 
-    // 체력바 표시
-    void ShowHpBar()
+    void CreateHealthBar()
     {
-        hpbarInstance = Instantiate(hpbarPrefab, transform);
-        hpbarInstance.transform.localPosition = new Vector3(0, 2.5f, 0);
-        Canvas canvas = hpbarInstance.GetComponent<Canvas>();
+        healthBarObject = Instantiate(healthBarPrefab, transform);
+        Canvas canvas = healthBarObject.GetComponent<Canvas>();
         canvas.renderMode = RenderMode.WorldSpace;
         canvas.worldCamera = Camera.main;
-        hpSlider = hpbarInstance.GetComponentInChildren<Slider>();
-        hpSlider.maxValue = maxHp;
-        hpSlider.value = currentHp;
+
+        RectTransform canvasRect = healthBarObject.GetComponent<RectTransform>();
+        canvasRect.sizeDelta = new Vector2(1f, 0.2f); // 체력바 크기 설정
+        canvasRect.localPosition = Vector3.up * 2f; // 캐릭터 위에 표시
+
+        backgroundBar = healthBarObject.transform.Find("Background").GetComponent<RectTransform>();
+        foregroundBar = healthBarObject.transform.Find("Foreground").GetComponent<RectTransform>();
+        foregroundImage = foregroundBar.GetComponent<Image>();
+
+        // Background 설정
+        backgroundBar.anchorMin = new Vector2(0, 0);
+        backgroundBar.anchorMax = new Vector2(1, 1);
+        backgroundBar.sizeDelta = Vector2.zero;
+        backgroundBar.anchoredPosition = Vector2.zero;
+
+        // Foreground 설정
+        foregroundBar.anchorMin = new Vector2(0, 0);
+        foregroundBar.anchorMax = new Vector2(1, 1);
+        foregroundBar.sizeDelta = Vector2.zero;
+        foregroundBar.anchoredPosition = Vector2.zero;
+
+        // Foreground Image 설정
+        foregroundImage.type = Image.Type.Filled;
+        foregroundImage.fillMethod = Image.FillMethod.Horizontal;
+        foregroundImage.fillOrigin = (int)Image.OriginHorizontal.Left;
+
+        UpdateHealthBar();
     }
 
-
-    // 체력바 위치 업데이트
-    void UpdateHpBarPosition()
+    void UpdateHealthBarPosition()
     {
-        if (hpbarInstance != null)
-        {
-            hpbarInstance.transform.position = transform.position + new Vector3(0, 2.5f, 0);
-            hpbarInstance.transform.LookAt(Camera.main.transform);
-            //hpbarInstance.transform.Rotate(0, 180, 0); 
-        }
+        healthBarObject.transform.rotation = Quaternion.LookRotation(healthBarObject.transform.position - Camera.main.transform.position);
     }
 
-    // 체력 업데이트
-    void UpdateHp()
+    void UpdateHealthBar()
     {
-        if (hpSlider != null)
-        {
-            hpSlider.value = currentHp;
-        }
+        float healthPercent = currentHp / maxHp;
+        foregroundImage.fillAmount = healthPercent;
     }
 
-    // 데미지 처리
     public void TakeDamage(float damage)
     {
         currentHp -= damage;
         currentHp = Mathf.Max(currentHp, 0);
-        UpdateHp();
+        UpdateHealthBar();
         if (currentHp <= 0)
         {
             Die();
         }
     }
 
-    // 캐릭터 사망 처리
     void Die()
     {
+        Destroy(healthBarObject);
         Destroy(gameObject);
     }
 }
