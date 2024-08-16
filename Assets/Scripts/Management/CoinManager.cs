@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CoinManager : DD_Singleton<CoinManager>
 {
-    private int _totalCoin = 0;
+    private int _totalCoin = 9999;
 
     public int TotalCoin
     {
