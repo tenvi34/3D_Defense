@@ -13,8 +13,9 @@ public class UpgradeManager : MonoBehaviour
         public float improvement;
     }
 
-    public UpgradeOption[] attackUpgrade;
-    public UpgradeOption[] hpUpgrade;
+    public UpgradeOption[] attackUpgrade; // 공격력 강화
+    public UpgradeOption[] hpUpgrade; // 최대 체력 강화
+    public UpgradeOption[] spawnUpgrade; // 플레이어 소환 수 강화
 
     // 공격력 강화
     public bool UpgradeAttack(int upgradeIndex)
@@ -39,6 +40,7 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
+    // 최대 체력 강화
     public bool UpgradeHp(int upgradeIndex)
     {
         if (upgradeIndex < 0 || upgradeIndex >= hpUpgrade.Length)
@@ -51,6 +53,29 @@ public class UpgradeManager : MonoBehaviour
         if (CoinManager.Instance.UseCoin(upgradeOption.cost))
         {
             playerStats.UpgradeMaxHp(upgradeOption.improvement);
+            Debug.Log($"{upgradeOption.name} 강화 성공.");
+            return true;
+        }
+        else
+        {
+            Debug.Log("코인 부족.");
+            return false;
+        }
+    }
+
+    // 플레이어 소환 수 강화
+    public bool UpgradeSpawn(int upgradeIndex)
+    {
+        if (upgradeIndex < 0 || upgradeIndex >= spawnUpgrade.Length)
+        {
+            Debug.LogError("잘못된 인덱스");
+            return false;
+        }
+
+        UpgradeOption upgradeOption = spawnUpgrade[upgradeIndex];
+        if (CoinManager.Instance.UseCoin(upgradeOption.cost))
+        {
+            PlayerEnemySpawnController.Instance.IncreaseMaxCharacterCount((int)upgradeOption.improvement);
             Debug.Log($"{upgradeOption.name} 강화 성공.");
             return true;
         }

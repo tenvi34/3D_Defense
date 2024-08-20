@@ -9,9 +9,18 @@ public class PlayerEnemySpawnController : SceneSingleton<PlayerEnemySpawnControl
 
     public List<GameObject> Monsters = new();
     private Dictionary<int, GameObject> MonsterInstances = new();
+
+    // 소환 가능한 플레이어 캐릭터 수
+    public int MaxCharacterSpawn { get; private set; } = 1;
     
     public GameObject GetNewCharacter(Vector3 position, Quaternion rotation)
     {
+        if (CharacterInstances.Count >= MaxCharacterSpawn)
+        {
+            Debug.Log("소환 가능한 수 초과");
+            return null;
+        }
+        
         // Debug.Log("플레이어 캐릭터 생성");
         GameObject prefab = Characters[Random.Range(0, Characters.Count)];
         GameObject instance = Instantiate(prefab, position, rotation);
@@ -26,5 +35,10 @@ public class PlayerEnemySpawnController : SceneSingleton<PlayerEnemySpawnControl
         GameObject instance = Instantiate(prefab, position, rotation);
         MonsterInstances.Add(instance.GetInstanceID(), instance);
         return instance;
+    }
+
+    public void IncreaseMaxCharacterCount(int count)
+    {
+        MaxCharacterSpawn += count;
     }
 }

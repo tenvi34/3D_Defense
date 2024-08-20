@@ -16,7 +16,12 @@ public class GridFloor : MonoBehaviour
     private void OnMouseDown()
     {
         Debug.Log("마우스 클릭");
-        PlayerEnemySpawnController.Instance.GetNewCharacter(transform.position + Vector3.up * 2, Quaternion.identity);
+        GameObject spawnPlayer = PlayerEnemySpawnController.Instance.GetNewCharacter(transform.position + Vector3.up * 2, Quaternion.identity);
+        
+        if (spawnPlayer == null)
+        {
+            Debug.Log("소환 가능한 플레이어 수 초과로 인해 소환 불가능");
+        }
     }
     
     private void OnMouseEnter()
