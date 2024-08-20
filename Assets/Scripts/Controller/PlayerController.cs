@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour, IAttack
 
     private Coroutine currentAction;
 
+    private PlayerStats _playerStats;
+
     private void Awake()
     {
         _moveState = GetComponent<PlayerMoveState>();
@@ -36,6 +38,7 @@ public class PlayerController : MonoBehaviour, IAttack
         if (selectMarker != null) selectMarker.SetActive(false);
         StateMachine = GetComponent<StateMachine<PlayerState>>();
         _hpScript = GetComponent<HpScript>();
+        _playerStats = GetComponent<PlayerStats>();
     }
 
     // 플레이어 선택
@@ -132,7 +135,8 @@ public class PlayerController : MonoBehaviour, IAttack
     
     public void PerformAttack(IAttack target)
     {
-        AttackSystem.PerformAttack(this, target, attackDamage);
+        //AttackSystem.PerformAttack(this, target, attackDamage);
+        AttackSystem.PerformAttack(this, target, _playerStats.stats.AttackDamage);
         OnAttackPerformed();
         
         // 공격 후 타겟의 상태 확인

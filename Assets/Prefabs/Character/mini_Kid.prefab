@@ -1398,6 +1398,7 @@ GameObject:
   - component: {fileID: -7099083440101098427}
   - component: {fileID: -8814688838462537597}
   - component: {fileID: -4796406898129442393}
+  - component: {fileID: -7557080074178215064}
   m_Layer: 6
   m_Name: mini_Kid
   m_TagString: Player
@@ -1571,6 +1572,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackCoolTime: 2
+--- !u!114 &-7557080074178215064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9200417707930478897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e0dd6be1f3209040952a825949967e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats:
+    originAttackDamage: 10
+    originMaxHp: 100
 --- !u!1001 &7060871094625641961
 PrefabInstance:
   m_ObjectHideFlags: 0

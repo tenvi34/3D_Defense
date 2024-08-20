@@ -94,4 +94,10 @@ public class HpScript : MonoBehaviour
         Destroy(healthBarObject);
         Destroy(gameObject);
     }
+
+    // 최대 체력으로 회복
+    public void SetMaxHealth(float statsMaxHealth)
+    {
+        maxHp = statsMaxHealth;
+    }
 }
