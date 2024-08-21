@@ -36,4 +36,9 @@ public class CoinManager : DD_Singleton<CoinManager>
         Debug.Log($"코인 부족. 현재 보유 코인: {TotalCoin}, 필요 코인: {coinNum}");
         return false;
     }
+    
+    public bool HasEnoughCoins(int coinNum)
+    {
+        return TotalCoin >= coinNum;
+    }
 }
