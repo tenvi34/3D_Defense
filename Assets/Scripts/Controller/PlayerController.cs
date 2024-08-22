@@ -39,6 +39,8 @@ public class PlayerController : MonoBehaviour, IAttack
         StateMachine = GetComponent<StateMachine<PlayerState>>();
         _hpScript = GetComponent<HpScript>();
         _playerStats = GetComponent<PlayerStats>();
+
+        UpdateMaxHp();
     }
 
     // 플레이어 선택
@@ -206,6 +208,16 @@ public class PlayerController : MonoBehaviour, IAttack
                 SetAttackTarget(attacker);
             }
         }
+    }
+    
+    private void UpdateMaxHp()
+    {
+        _hpScript.SetMaxHealth(_playerStats.stats.MaxHp);
+    }
+    
+    public void UpdateStats()
+    {
+        UpdateMaxHp();
     }
 
     public float GetHealth() => _hpScript.GetCurrentHp();
