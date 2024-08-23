@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
@@ -11,6 +12,16 @@ public class PlayerStats : MonoBehaviour
         _hpScript = GetComponent<HpScript>();
         _playerController = GetComponent<PlayerController>();
         UpdateMaxHp();
+    }
+
+    private void Start()
+    {
+        PlayerManager.Instance.AddPlayer(this);
+    }
+
+    private void OnDestroy()
+    {
+        PlayerManager.Instance.RemovePlayer(this);
     }
 
     // 최대 체력 설정

@@ -8,86 +8,137 @@ public class UpgradeUIManager : MonoBehaviour
 {
     public GameObject upgradePanel;
     public Button openUpgradeButton;
-    public Button closeUpgradeButton;
+    public Button closeButton;
     
-    public Button attackUpgradeButton;
-    public Button hpUpgradeButton;
-    public Button spawnUpgradeButton;
+    [System.Serializable]
+    public class UpgradeButtonInfo
+    {
+        public Button button;
+        public Text nameText;
+        public Text costText;
+    }
+
+    public UpgradeButtonInfo attackUpgrade;
+    public UpgradeButtonInfo hpUpgrade;
+    public UpgradeButtonInfo spawnUpgrade;
 
     private UpgradeManager upgradeManager;
 
     private void Start()
     {
-        upgradeManager = FindObjectOfType<UpgradeManager>();
+        upgradeManager = GetComponent<UpgradeManager>();
         if (upgradeManager == null)
         {
-            Debug.LogError("UpgradeManager not found in the scene.");
+            Debug.LogError("UpgradeManager not found on the same GameObject as UpgradeUIManager.");
             return;
         }
 
-        openUpgradeButton.onClick.AddListener(OpenUpgradePanel);
-        closeUpgradeButton.onClick.AddListener(CloseUpgradePanel);
-        
-        attackUpgradeButton.onClick.AddListener(UpgradeAttack);
-        hpUpgradeButton.onClick.AddListener(UpgradeHP);
-        spawnUpgradeButton.onClick.AddListener(UpgradeSpawn);
+        SetupButton(openUpgradeButton, OpenUpgradePanel, "Open Upgrade Button");
+        SetupButton(closeButton, CloseUpgradePanel, "Close Button");
+        SetupButton(attackUpgrade.button, UpgradeAttack, "Attack Upgrade Button");
+        SetupButton(hpUpgrade.button, UpgradeHP, "HP Upgrade Button");
+        SetupButton(spawnUpgrade.button, UpgradeSpawn, "Spawn Upgrade Button");
 
-        upgradePanel.SetActive(false);
+        if (upgradePanel != null)
+        {
+            upgradePanel.SetActive(false);
+        }
+        else
+        {
+            Debug.LogError("Upgrade Panel is not assigned in UpgradeUIManager.");
+        }
+
+        UpdateAllButtonTexts();
+    }
+
+    private void SetupButton(Button button, UnityEngine.Events.UnityAction action, string buttonName)
+    {
+        if (button != null)
+        {
+            button.onClick.AddListener(action);
+        }
+        else
+        {
+            Debug.LogError($"{buttonName} is not assigned in UpgradeUIManager.");
+        }
     }
 
     private void OpenUpgradePanel()
     {
-        upgradePanel.SetActive(true);
-        Time.timeScale = 0f; // 게임 일시 정지
+        if (upgradePanel != null)
+        {
+            upgradePanel.SetActive(true);
+            UpdateAllButtonTexts();
+            Time.timeScale = 0f;
+        }
     }
 
     private void CloseUpgradePanel()
     {
-        upgradePanel.SetActive(false);
-        Time.timeScale = 1f; // 게임 재개
+        if (upgradePanel != null)
+        {
+            upgradePanel.SetActive(false);
+            Time.timeScale = 1f;
+        }
     }
 
     private void UpgradeAttack()
     {
-        if (upgradeManager.UpgradeAttack()) 
+        if (upgradeManager.UpgradeAttack())
         {
-            UpdateButtonText(attackUpgradeButton, "attack");
+            UpdateButtonText(attackUpgrade, "attack");
         }
     }
 
     private void UpgradeHP()
     {
-        if (upgradeManager.UpgradeHp()) 
+        if (upgradeManager.UpgradeHp())
         {
-            UpdateButtonText(hpUpgradeButton, "hp");
+            UpdateButtonText(hpUpgrade, "hp");
         }
     }
 
     private void UpgradeSpawn()
     {
-        if (upgradeManager.UpgradeSpawn()) 
+        if (upgradeManager.UpgradeSpawn())
         {
-            UpdateButtonText(spawnUpgradeButton, "spawn");
+            UpdateButtonText(spawnUpgrade, "spawn");
         }
     }
 
-    private void UpdateButtonText(Button button, string upgradeName)
+    private void UpdateButtonText(UpgradeButtonInfo buttonInfo, string upgradeName)
     {
-        var (name, cost, level) = upgradeManager.GetUpgradeInfo(upgradeName);
-        Text nameText = button.transform.Find("name").GetComponent<Text>();
-        Text costText = button.transform.Find("cost").GetComponent<Text>();
-        
-        if (nameText != null && costText != null)
+        if (upgradeManager == null)
         {
-            nameText.text = $"{name} Lv.{level}";
-            costText.text = $"비용: {cost}";
+            Debug.LogError("UpgradeManager is null in UpgradeUIManager.");
+            return;
+        }
+
+        var (name, cost, level) = upgradeManager.GetUpgradeInfo(upgradeName);
+        
+        if (buttonInfo.nameText != null)
+        {
+            buttonInfo.nameText.text = $"{name} Lv.{level}";
+        }
+        else
+        {
+            Debug.LogError($"Name Text for {upgradeName} upgrade is not assigned in UpgradeUIManager.");
+        }
+
+        if (buttonInfo.costText != null)
+        {
+            buttonInfo.costText.text = $"비용: {cost}";
+        }
+        else
+        {
+            Debug.LogError($"Cost Text for {upgradeName} upgrade is not assigned in UpgradeUIManager.");
         }
     }
-    
+
     private void UpdateAllButtonTexts()
     {
-        UpdateButtonText(attackUpgradeButton, "attack");
-        UpdateButtonText(hpUpgradeButton, "hp");
-        UpdateButtonText(spawnUpgradeButton, "spawn");
+        UpdateButtonText(attackUpgrade, "attack");
+        UpdateButtonText(hpUpgrade, "hp");
+        UpdateButtonText(spawnUpgrade, "spawn");
     }
 }

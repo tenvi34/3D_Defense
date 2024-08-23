@@ -43,7 +43,8 @@ public class UpgradeManager : MonoBehaviour
     {
         if (coinManager.UseCoin(attackUpgrade.currentCost))
         {
-            playerStats.UpgradeAttackDamage(attackUpgrade.improvement);
+            //playerStats.UpgradeAttackDamage(attackUpgrade.improvement);
+            PlayerManager.Instance.UpgradeAllPlayersAttack(attackUpgrade.improvement);
             attackUpgrade.Upgrade();
             return true;
         }
@@ -54,7 +55,8 @@ public class UpgradeManager : MonoBehaviour
     {
         if (coinManager.UseCoin(hpUpgrade.currentCost))
         {
-            playerStats.UpgradeMaxHp(hpUpgrade.improvement);
+            //playerStats.UpgradeMaxHp(hpUpgrade.improvement);
+            PlayerManager.Instance.UpgradeAllPlayersHp(hpUpgrade.improvement);
             hpUpgrade.Upgrade();
             return true;
         }
