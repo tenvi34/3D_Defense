@@ -132,6 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7137524}
   - component: {fileID: 7137527}
+  - component: {fileID: 7137528}
   - component: {fileID: 7137526}
   - component: {fileID: 7137525}
   m_Layer: 0
@@ -199,7 +200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerStats: {fileID: -7557080074178215064, guid: 6655fd77bcc2bdd4eaee416686c327d8,
     type: 3}
-  coinManager: {fileID: 7137527}
+  coinManager: {fileID: 1805963557}
   attackUpgrade:
     name: "\uACF5\uACA9\uB825"
     baseCost: 10
@@ -233,6 +234,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6709273877c4f6e44b2e620bb98ac52c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7137528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7137523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a0a98cf05b346f47a3d6767f6305026, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinUI: {fileID: 218236950}
 --- !u!1 &19004162
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,6 +475,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &218236950 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8927621958251741606, guid: d484ecb403beacb46998e6b2e8f57efa,
+    type: 3}
+  m_PrefabInstance: {fileID: 65123587694527433}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &242320569 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1520517819301145534, guid: abfb57e3efe23a24f9612d4cf7f675e3,
@@ -2956,6 +2982,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1805963557 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8139663145951084719, guid: d484ecb403beacb46998e6b2e8f57efa,
+    type: 3}
+  m_PrefabInstance: {fileID: 65123587694527433}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6709273877c4f6e44b2e620bb98ac52c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1842562537
