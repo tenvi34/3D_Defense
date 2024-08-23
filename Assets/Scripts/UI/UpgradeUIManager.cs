@@ -9,6 +9,9 @@ public class UpgradeUIManager : MonoBehaviour
     public GameObject upgradePanel;
     public Button openUpgradeButton;
     public Button closeButton;
+
+    public int nameFontSize;
+    public int costFontSize;
     
     [System.Serializable]
     public class UpgradeButtonInfo
@@ -69,7 +72,7 @@ public class UpgradeUIManager : MonoBehaviour
         {
             upgradePanel.SetActive(true);
             UpdateAllButtonTexts();
-            Time.timeScale = 0f;
+            Time.timeScale = 0f; // 게임 일시정지
         }
     }
 
@@ -78,7 +81,7 @@ public class UpgradeUIManager : MonoBehaviour
         if (upgradePanel != null)
         {
             upgradePanel.SetActive(false);
-            Time.timeScale = 1f;
+            Time.timeScale = 1f; // 게임 재개
         }
     }
 
@@ -119,6 +122,7 @@ public class UpgradeUIManager : MonoBehaviour
         if (buttonInfo.nameText != null)
         {
             buttonInfo.nameText.text = $"{name} Lv.{level}";
+            buttonInfo.nameText.fontSize = nameFontSize;
         }
         else
         {
@@ -128,6 +132,7 @@ public class UpgradeUIManager : MonoBehaviour
         if (buttonInfo.costText != null)
         {
             buttonInfo.costText.text = $"비용: {cost}";
+            buttonInfo.costText.fontSize = costFontSize;
         }
         else
         {

@@ -171,6 +171,8 @@ MonoBehaviour:
   upgradePanel: {fileID: 2042417021}
   openUpgradeButton: {fileID: 1534976979}
   closeButton: {fileID: 720879382}
+  nameFontSize: 17
+  costFontSize: 17
   attackUpgrade:
     button: {fileID: 1251091473}
     nameText: {fileID: 1763005922}
@@ -197,7 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerStats: {fileID: -7557080074178215064, guid: 6655fd77bcc2bdd4eaee416686c327d8,
     type: 3}
-  coinManager: {fileID: 113059703}
+  coinManager: {fileID: 7137527}
   attackUpgrade:
     name: "\uACF5\uACA9\uB825"
     baseCost: 10
@@ -341,18 +343,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 32273501}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &113059703 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8139663145951084719, guid: d484ecb403beacb46998e6b2e8f57efa,
-    type: 3}
-  m_PrefabInstance: {fileID: 65123587694527433}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6709273877c4f6e44b2e620bb98ac52c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &203844586
 GameObject:
   m_ObjectHideFlags: 0
@@ -3586,6 +3576,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4323923200063761228, guid: abfb57e3efe23a24f9612d4cf7f675e3,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -140
+      objectReference: {fileID: 0}
+    - target: {fileID: 4323923200063761228, guid: abfb57e3efe23a24f9612d4cf7f675e3,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5227874897667055180, guid: abfb57e3efe23a24f9612d4cf7f675e3,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -140
+      objectReference: {fileID: 0}
+    - target: {fileID: 5227874897667055180, guid: abfb57e3efe23a24f9612d4cf7f675e3,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6044533344433526826, guid: abfb57e3efe23a24f9612d4cf7f675e3,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -140
+      objectReference: {fileID: 0}
+    - target: {fileID: 6044533344433526826, guid: abfb57e3efe23a24f9612d4cf7f675e3,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7031662037208276670, guid: abfb57e3efe23a24f9612d4cf7f675e3,
         type: 3}
