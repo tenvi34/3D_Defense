@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class UpgradeManager : MonoBehaviour
 {
-    public PlayerStats playerStats;
+    //public PlayerStats playerStats;
     public CoinManager coinManager;
 
     [Serializable]
@@ -31,12 +31,14 @@ public class UpgradeManager : MonoBehaviour
     public UpgradeOption attackUpgrade;
     public UpgradeOption hpUpgrade;
     public UpgradeOption spawnUpgrade;
+    public UpgradeOption coinUpgrade;
 
     private void Start()
     {
         attackUpgrade.Initialize();
         hpUpgrade.Initialize();
         spawnUpgrade.Initialize();
+        coinUpgrade.Initialize();
     }
 
     public bool UpgradeAttack()
@@ -74,6 +76,17 @@ public class UpgradeManager : MonoBehaviour
         return false;
     }
 
+    public bool UpgradeCoin()
+    {
+        if (coinManager.UseCoin(coinUpgrade.currentCost))
+        {
+            
+            coinUpgrade.Upgrade();
+            return true;
+        }
+        return false;
+    }
+
     public (string name, int cost, int level) GetUpgradeInfo(string upgradeName)
     {
         switch (upgradeName)
@@ -84,6 +97,8 @@ public class UpgradeManager : MonoBehaviour
                 return (hpUpgrade.name, hpUpgrade.currentCost, hpUpgrade.currentLevel);
             case "spawn":
                 return (spawnUpgrade.name, spawnUpgrade.currentCost, spawnUpgrade.currentLevel);
+            case "coin":
+                return (coinUpgrade.name, coinUpgrade.currentCost, coinUpgrade.currentLevel);
             default:
                 return ("", 0, 0);
         }

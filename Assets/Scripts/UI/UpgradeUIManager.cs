@@ -24,32 +24,34 @@ public class UpgradeUIManager : MonoBehaviour
     public UpgradeButtonInfo attackUpgrade;
     public UpgradeButtonInfo hpUpgrade;
     public UpgradeButtonInfo spawnUpgrade;
+    public UpgradeButtonInfo coinUpgrade;
 
     private UpgradeManager upgradeManager;
 
     private void Start()
     {
         upgradeManager = GetComponent<UpgradeManager>();
-        if (upgradeManager == null)
-        {
-            Debug.LogError("UpgradeManager not found on the same GameObject as UpgradeUIManager.");
-            return;
-        }
+        // if (upgradeManager == null)
+        // {
+        //     Debug.LogError("UpgradeManager not found on the same GameObject as UpgradeUIManager.");
+        //     return;
+        // }
 
         SetupButton(openUpgradeButton, OpenUpgradePanel, "Open Upgrade Button");
         SetupButton(closeButton, CloseUpgradePanel, "Close Button");
         SetupButton(attackUpgrade.button, UpgradeAttack, "Attack Upgrade Button");
         SetupButton(hpUpgrade.button, UpgradeHP, "HP Upgrade Button");
         SetupButton(spawnUpgrade.button, UpgradeSpawn, "Spawn Upgrade Button");
+        SetupButton(coinUpgrade.button, UpgradeCoin, "Coin Upgrade Button");
 
         if (upgradePanel != null)
         {
             upgradePanel.SetActive(false);
         }
-        else
-        {
-            Debug.LogError("Upgrade Panel is not assigned in UpgradeUIManager.");
-        }
+        // else
+        // {
+        //     Debug.LogError("Upgrade Panel is not assigned in UpgradeUIManager.");
+        // }
 
         UpdateAllButtonTexts();
     }
@@ -60,10 +62,10 @@ public class UpgradeUIManager : MonoBehaviour
         {
             button.onClick.AddListener(action);
         }
-        else
-        {
-            Debug.LogError($"{buttonName} is not assigned in UpgradeUIManager.");
-        }
+        // else
+        // {
+        //     Debug.LogError($"{buttonName} is not assigned in UpgradeUIManager.");
+        // }
     }
 
     private void OpenUpgradePanel()
@@ -109,13 +111,21 @@ public class UpgradeUIManager : MonoBehaviour
         }
     }
 
+    private void UpgradeCoin()
+    {
+        if (upgradeManager.UpgradeCoin())
+        {
+            UpdateButtonText(coinUpgrade, "coin");
+        }
+    }
+
     private void UpdateButtonText(UpgradeButtonInfo buttonInfo, string upgradeName)
     {
-        if (upgradeManager == null)
-        {
-            Debug.LogError("UpgradeManager is null in UpgradeUIManager.");
-            return;
-        }
+        // if (upgradeManager == null)
+        // {
+        //     Debug.LogError("UpgradeManager is null in UpgradeUIManager.");
+        //     return;
+        // }
 
         var (name, cost, level) = upgradeManager.GetUpgradeInfo(upgradeName);
         
@@ -124,20 +134,20 @@ public class UpgradeUIManager : MonoBehaviour
             buttonInfo.nameText.text = $"{name} Lv.{level}";
             buttonInfo.nameText.fontSize = nameFontSize;
         }
-        else
-        {
-            Debug.LogError($"Name Text for {upgradeName} upgrade is not assigned in UpgradeUIManager.");
-        }
+        // else
+        // {
+        //     Debug.LogError($"Name Text for {upgradeName} upgrade is not assigned in UpgradeUIManager.");
+        // }
 
         if (buttonInfo.costText != null)
         {
             buttonInfo.costText.text = $"비용: {cost}";
             buttonInfo.costText.fontSize = costFontSize;
         }
-        else
-        {
-            Debug.LogError($"Cost Text for {upgradeName} upgrade is not assigned in UpgradeUIManager.");
-        }
+        // else
+        // {
+        //     Debug.LogError($"Cost Text for {upgradeName} upgrade is not assigned in UpgradeUIManager.");
+        // }
     }
 
     private void UpdateAllButtonTexts()
@@ -145,5 +155,6 @@ public class UpgradeUIManager : MonoBehaviour
         UpdateButtonText(attackUpgrade, "attack");
         UpdateButtonText(hpUpgrade, "hp");
         UpdateButtonText(spawnUpgrade, "spawn");
+        UpdateButtonText(coinUpgrade, "coin");
     }
 }

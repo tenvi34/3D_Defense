@@ -37,8 +37,9 @@ public class CoinManager : DD_Singleton<CoinManager>
         return false;
     }
     
-    public bool HasEnoughCoins(int coinNum)
-    {
-        return TotalCoin >= coinNum;
-    }
+    // public bool HasEnoughCoins(int coinNum)
+    // {
+    //     return TotalCoin >= coinNum;
+    // }
+    
 }

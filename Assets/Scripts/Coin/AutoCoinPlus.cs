@@ -19,4 +19,9 @@ public class AutoCoinPlus : MonoBehaviour
             CoinManager.Instance.AddCoin(coinCount);
         }
     }
+
+    public void IncreaseAutoCoin(int count)
+    {
+        coinCount += count;
+    }
 }
