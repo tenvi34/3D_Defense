@@ -44,14 +44,12 @@ public class UpgradeUIManager : MonoBehaviour
         // 필수 컴포넌트 확인
         if (upgradePanel == null || openUpgradeButton == null || closeButton == null)
         {
-            Debug.LogError("UpgradeUIManager: Essential components are not assigned in the inspector");
             return;
         }
 
         upgradeManager = GetComponent<UpgradeManager>();
         if (upgradeManager == null)
         {
-            Debug.LogError("UpgradeUIManager: UpgradeManager not found on the same GameObject.");
             return;
         }
 
@@ -82,10 +80,6 @@ public class UpgradeUIManager : MonoBehaviour
         {
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(action);
-        }
-        else
-        {
-            Debug.LogError($"UpgradeUIManager: {buttonName} is not assigned");
         }
     }
 

@@ -20,8 +20,4 @@ public class AutoCoinPlus : MonoBehaviour
         }
     }
 
-    public void IncreaseAutoCoin(int count)
-    {
-        coinCount += count;
-    }
 }

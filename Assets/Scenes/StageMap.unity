@@ -3569,7 +3569,7 @@ PrefabInstance:
     - target: {fileID: 3906221494609562423, guid: d484ecb403beacb46998e6b2e8f57efa,
         type: 3}
       propertyPath: m_Name
-      value: CoinAll
+      value: CoinUI
       objectReference: {fileID: 0}
     - target: {fileID: 7098788548702283584, guid: d484ecb403beacb46998e6b2e8f57efa,
         type: 3}
@@ -3832,6 +3832,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: UI_Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 4627038841253327672, guid: c2516967d8aabe74084df4d0643cee28,
+        type: 3}
+      propertyPath: coinUpgrade.improvement
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6024421090163662653, guid: c2516967d8aabe74084df4d0643cee28,
         type: 3}

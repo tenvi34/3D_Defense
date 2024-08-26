@@ -147,7 +147,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7098788548702283584}
   m_Layer: 0
-  m_Name: CoinAll
+  m_Name: CoinUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
