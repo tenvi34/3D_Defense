@@ -80,6 +80,7 @@ public class UpgradeManager : MonoBehaviour
     {
         if (coinManager.UseCoin(coinUpgrade.currentCost))
         {
+            // 코인 업그레이드 추가 할 곳
             
             coinUpgrade.Upgrade();
             return true;
@@ -103,7 +104,6 @@ public class UpgradeManager : MonoBehaviour
                 return ("", 0, 0);
         }
     }
-    
 }
 
 

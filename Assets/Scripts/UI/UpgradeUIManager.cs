@@ -1,8 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class UpgradeUIManager : MonoBehaviour
 {
@@ -10,8 +8,9 @@ public class UpgradeUIManager : MonoBehaviour
     public Button openUpgradeButton;
     public Button closeButton;
 
-    public int nameFontSize;
-    public int costFontSize;
+    // 텍스트 폰트 크기 설정
+    public int nameFontSize = 14;
+    public int costFontSize = 12;
     
     [System.Serializable]
     public class UpgradeButtonInfo
@@ -28,47 +27,70 @@ public class UpgradeUIManager : MonoBehaviour
 
     private UpgradeManager upgradeManager;
 
+    private void OnEnable()
+    {
+        if (openUpgradeButton != null) openUpgradeButton.onClick.AddListener(OpenUpgradePanel);
+        if (closeButton != null) closeButton.onClick.AddListener(CloseUpgradePanel);
+    }
+
+    private void OnDisable()
+    {
+        if (openUpgradeButton != null) openUpgradeButton.onClick.RemoveListener(OpenUpgradePanel);
+        if (closeButton != null) closeButton.onClick.RemoveListener(CloseUpgradePanel);
+    }
+
     private void Start()
     {
-        upgradeManager = GetComponent<UpgradeManager>();
-        // if (upgradeManager == null)
-        // {
-        //     Debug.LogError("UpgradeManager not found on the same GameObject as UpgradeUIManager.");
-        //     return;
-        // }
+        // 필수 컴포넌트 확인
+        if (upgradePanel == null || openUpgradeButton == null || closeButton == null)
+        {
+            Debug.LogError("UpgradeUIManager: Essential components are not assigned in the inspector");
+            return;
+        }
 
-        SetupButton(openUpgradeButton, OpenUpgradePanel, "Open Upgrade Button");
-        SetupButton(closeButton, CloseUpgradePanel, "Close Button");
+        upgradeManager = GetComponent<UpgradeManager>();
+        if (upgradeManager == null)
+        {
+            Debug.LogError("UpgradeUIManager: UpgradeManager not found on the same GameObject.");
+            return;
+        }
+
+        // 초기에 업그레이드 패널 비활성화
+        upgradePanel.SetActive(false);
+
+        // UI 초기화 코루틴 시작
+        StartCoroutine(InitializeUI());
+    }
+
+    // UI 초기화 코루틴
+    private IEnumerator InitializeUI()
+    {
+        yield return null; // 1프레임 대기
+
         SetupButton(attackUpgrade.button, UpgradeAttack, "Attack Upgrade Button");
         SetupButton(hpUpgrade.button, UpgradeHP, "HP Upgrade Button");
         SetupButton(spawnUpgrade.button, UpgradeSpawn, "Spawn Upgrade Button");
         SetupButton(coinUpgrade.button, UpgradeCoin, "Coin Upgrade Button");
 
-        if (upgradePanel != null)
-        {
-            upgradePanel.SetActive(false);
-        }
-        // else
-        // {
-        //     Debug.LogError("Upgrade Panel is not assigned in UpgradeUIManager.");
-        // }
-
         UpdateAllButtonTexts();
     }
 
+    // 버튼 설정
     private void SetupButton(Button button, UnityEngine.Events.UnityAction action, string buttonName)
     {
         if (button != null)
         {
+            button.onClick.RemoveAllListeners();
             button.onClick.AddListener(action);
         }
-        // else
-        // {
-        //     Debug.LogError($"{buttonName} is not assigned in UpgradeUIManager.");
-        // }
+        else
+        {
+            Debug.LogError($"UpgradeUIManager: {buttonName} is not assigned");
+        }
     }
 
-    private void OpenUpgradePanel()
+    // 업그레이드 패널 열기
+    public void OpenUpgradePanel()
     {
         if (upgradePanel != null)
         {
@@ -78,7 +100,8 @@ public class UpgradeUIManager : MonoBehaviour
         }
     }
 
-    private void CloseUpgradePanel()
+    // 업그레이드 패널 닫기
+    public void CloseUpgradePanel()
     {
         if (upgradePanel != null)
         {
@@ -87,6 +110,7 @@ public class UpgradeUIManager : MonoBehaviour
         }
     }
 
+    // 공격력 업그레이드
     private void UpgradeAttack()
     {
         if (upgradeManager.UpgradeAttack())
@@ -95,6 +119,7 @@ public class UpgradeUIManager : MonoBehaviour
         }
     }
 
+    // 체력 업그레이드
     private void UpgradeHP()
     {
         if (upgradeManager.UpgradeHp())
@@ -103,6 +128,7 @@ public class UpgradeUIManager : MonoBehaviour
         }
     }
 
+    // 소환 수 업그레이드
     private void UpgradeSpawn()
     {
         if (upgradeManager.UpgradeSpawn())
@@ -111,6 +137,7 @@ public class UpgradeUIManager : MonoBehaviour
         }
     }
 
+    // 코인 획득량 업그레이드
     private void UpgradeCoin()
     {
         if (upgradeManager.UpgradeCoin())
@@ -119,13 +146,10 @@ public class UpgradeUIManager : MonoBehaviour
         }
     }
 
+    // 버튼 텍스트 업데이트
     private void UpdateButtonText(UpgradeButtonInfo buttonInfo, string upgradeName)
     {
-        // if (upgradeManager == null)
-        // {
-        //     Debug.LogError("UpgradeManager is null in UpgradeUIManager.");
-        //     return;
-        // }
+        if (upgradeManager == null) return;
 
         var (name, cost, level) = upgradeManager.GetUpgradeInfo(upgradeName);
         
@@ -134,20 +158,12 @@ public class UpgradeUIManager : MonoBehaviour
             buttonInfo.nameText.text = $"{name} Lv.{level}";
             buttonInfo.nameText.fontSize = nameFontSize;
         }
-        // else
-        // {
-        //     Debug.LogError($"Name Text for {upgradeName} upgrade is not assigned in UpgradeUIManager.");
-        // }
 
         if (buttonInfo.costText != null)
         {
             buttonInfo.costText.text = $"비용: {cost}";
             buttonInfo.costText.fontSize = costFontSize;
         }
-        // else
-        // {
-        //     Debug.LogError($"Cost Text for {upgradeName} upgrade is not assigned in UpgradeUIManager.");
-        // }
     }
 
     private void UpdateAllButtonTexts()

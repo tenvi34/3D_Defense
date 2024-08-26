@@ -1,0 +1,151 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3969519225760413491
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6024421090163662653}
+  - component: {fileID: 1406036415055524359}
+  - component: {fileID: 1111731634426324655}
+  - component: {fileID: 682214061876271344}
+  - component: {fileID: 4627038841253327672}
+  - component: {fileID: 3036844380374952627}
+  m_Layer: 0
+  m_Name: UI_Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6024421090163662653
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3969519225760413491}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1196.7233, y: 691.7068, z: 572.5972}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1406036415055524359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3969519225760413491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6709273877c4f6e44b2e620bb98ac52c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1111731634426324655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3969519225760413491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a0a98cf05b346f47a3d6767f6305026, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinUI: {fileID: 0}
+--- !u!114 &682214061876271344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3969519225760413491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9998a46999a29bb4284c3e5ae7a3391f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateInterval: 2
+  coinCount: 1
+--- !u!114 &4627038841253327672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3969519225760413491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2229d876b1a905646b5178ff553e0b3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinManager: {fileID: 1406036415055524359}
+  attackUpgrade:
+    name: "\uACF5\uACA9\uB825"
+    baseCost: 10
+    improvement: 5
+    costIncreaseRate: 1.5
+    currentLevel: 0
+    currentCost: 0
+  hpUpgrade:
+    name: "\uCCB4\uB825"
+    baseCost: 10
+    improvement: 10
+    costIncreaseRate: 1.5
+    currentLevel: 0
+    currentCost: 0
+  spawnUpgrade:
+    name: "\uCD5C\uB300 \uC18C\uD658"
+    baseCost: 20
+    improvement: 1
+    costIncreaseRate: 1.5
+    currentLevel: 0
+    currentCost: 0
+  coinUpgrade:
+    name: "\uCF54\uC778 \uC99D\uAC00"
+    baseCost: 10
+    improvement: 1
+    costIncreaseRate: 1.5
+    currentLevel: 0
+    currentCost: 0
+--- !u!114 &3036844380374952627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3969519225760413491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53b63291f430c424ea59112057bb5121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradePanel: {fileID: 0}
+  openUpgradeButton: {fileID: 0}
+  closeButton: {fileID: 0}
+  nameFontSize: 17
+  costFontSize: 17
+  attackUpgrade:
+    button: {fileID: 0}
+    nameText: {fileID: 0}
+    costText: {fileID: 0}
+  hpUpgrade:
+    button: {fileID: 0}
+    nameText: {fileID: 0}
+    costText: {fileID: 0}
+  spawnUpgrade:
+    button: {fileID: 0}
+    nameText: {fileID: 0}
+    costText: {fileID: 0}
+  coinUpgrade:
+    button: {fileID: 0}
+    nameText: {fileID: 0}
+    costText: {fileID: 0}
