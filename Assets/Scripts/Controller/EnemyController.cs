@@ -199,6 +199,13 @@ public class EnemyController : MonoBehaviour, IAttack
         _animator.SetBool(Attack, isAttack);
     }
 
+    // 제일 가까운 Destination 설정
+    public void SetNearDestination()
+    {
+        DestinationIndex = PhaseManager.Instance.GetNearDestination(transform.position);
+    }
+    
+
     // 감지 범위 표시 생성
     void ShowDetectionRange()
     {
