@@ -112,7 +112,7 @@ MonoBehaviour:
   coinUpgrade:
     name: "\uCF54\uC778 \uC99D\uAC00"
     baseCost: 10
-    improvement: 1
+    improvement: 2
     costIncreaseRate: 1.5
     currentLevel: 0
     currentCost: 0
