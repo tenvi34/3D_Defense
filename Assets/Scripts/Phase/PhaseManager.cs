@@ -38,6 +38,7 @@ public class PhaseManager : SceneSingleton<PhaseManager>
         return _destinations.Count;
     }
 
+    // 2024-08-26
     // 적 랜덤 생성 위치 찾기
     public Vector3 GetRandomSpawnPosition()
     {
@@ -50,6 +51,7 @@ public class PhaseManager : SceneSingleton<PhaseManager>
         return new Vector3(randomX, firstPos.y, randomZ);
     }
     
+    // 2024-08-26
     // 랜덤 생성 후 가장 가까운 Destination으로 찾아가는 메서드
     public int GetNearDestination(Vector3 position)
     {

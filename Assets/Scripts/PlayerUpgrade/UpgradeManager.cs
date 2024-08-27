@@ -81,6 +81,7 @@ public class UpgradeManager : MonoBehaviour
         if (coinManager.UseCoin(coinUpgrade.currentCost))
         {
             // 코인 업그레이드 추가 할 곳
+            // 2024-08-26
             var findAutoCoinPlus = FindObjectOfType<AutoCoinPlus>();
             findAutoCoinPlus.coinCount += (int)coinUpgrade.improvement;
             coinUpgrade.Upgrade();

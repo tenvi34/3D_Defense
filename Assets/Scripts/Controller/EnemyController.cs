@@ -199,6 +199,7 @@ public class EnemyController : MonoBehaviour, IAttack
         _animator.SetBool(Attack, isAttack);
     }
 
+    // 2024-08-26
     // 제일 가까운 Destination 설정
     public void SetNearDestination()
     {

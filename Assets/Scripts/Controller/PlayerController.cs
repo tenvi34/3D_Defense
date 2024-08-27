@@ -220,6 +220,12 @@ public class PlayerController : MonoBehaviour, IAttack
         UpdateMaxHp();
     }
 
+    public void ArriveItem(Item aliveItem)
+    {
+        // 후처리
+        ItemManager.Instance.AddItem(aliveItem);
+    }
+
     public float GetHealth() => _hpScript.GetCurrentHp();
     public bool IsAlive() => _hpScript.IsAlive();
     public Transform GetTransform() => transform;
