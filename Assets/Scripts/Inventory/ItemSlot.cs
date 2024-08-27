@@ -14,15 +14,8 @@ public class ItemSlot : MonoBehaviour
             slotImage.color = Color.white;
     }
     
-    // Start is called before the first frame update
     void Start()
     {
         slotImage = GetComponent<Image>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Item : MonoBehaviour
@@ -9,12 +8,6 @@ public class Item : MonoBehaviour
     public float ArrivedDistance = 0.0f;
     public bool StartedTrace = false;
     public Sprite itemSprite;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     IEnumerator TraceProcess()
     {
@@ -39,7 +32,6 @@ public class Item : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (StartedTrace)

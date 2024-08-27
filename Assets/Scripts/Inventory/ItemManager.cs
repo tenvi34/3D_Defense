@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class ItemManager : SceneSingleton<ItemManager>
 {
@@ -77,7 +79,6 @@ public class ItemManager : SceneSingleton<ItemManager>
         return v1 + r1 * (v2 - v1) + r2 * (v3 - v1);
     }
     
-    // Start is called before the first frame update
     void Start()
     {
         for (int i = 0; i < Ui_Inventory.SlotCount; ++i)
@@ -88,9 +89,9 @@ public class ItemManager : SceneSingleton<ItemManager>
         StartCoroutine(SpawnCoroutine());
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // 클릭해서 아이템 사용 기능 구현
         
     }
 }
