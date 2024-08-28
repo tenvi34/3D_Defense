@@ -90,6 +90,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: SF Inventory
       objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: ea476ea435ac41245b4a7f3f64c17c4e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: ea476ea435ac41245b4a7f3f64c17c4e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: ea476ea435ac41245b4a7f3f64c17c4e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: ea476ea435ac41245b4a7f3f64c17c4e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnItemSlotClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: ea476ea435ac41245b4a7f3f64c17c4e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ItemManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: ea476ea435ac41245b4a7f3f64c17c4e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 22400004, guid: ea476ea435ac41245b4a7f3f64c17c4e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

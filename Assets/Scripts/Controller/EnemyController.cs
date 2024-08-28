@@ -18,6 +18,12 @@ public class EnemyController : MonoBehaviour, IAttack
     [SerializeField] private float detectionRange = 3.0f; // 플레이어 감지 범위
     private GameObject currentTarget; // 공격 대상
     
+    // 동선 관련
+    [SerializeField] private float avoidRange = 2f; // 회피 반경
+    [SerializeField] private float avoidForce = 1f; // 회피력
+    [SerializeField] private LayerMask enemyLayer; // 적 레이어
+    private Vector3 avoidVector;
+    
     public float AttackRange => attackRange;
     public float DetectionRange => detectionRange;
     
@@ -91,11 +97,29 @@ public class EnemyController : MonoBehaviour, IAttack
         // 목적지 정보를 PhaseManager에서 가져옴
         (int resultIndex, Vector3 destination) = PhaseManager.Instance.GetDestination(DestinationIndex);
         
-        // 몬스터가 이동할 때 목적지에 도달했는지 확인
-        if (MoveToDestination(destination))
+        // 회피 벡터 계산
+        CalculateAvoidanceVector();
+        
+        // 회피 벡터 적용하기
+        Vector3 moveDirection = (destination - transform.position).normalized + avoidVector;
+        if (moveDirection != Vector3.zero)
+        {
+            // 이동하고 회전
+            _rigidbody.MovePosition(transform.position + moveDirection.normalized * (Speed * Time.fixedDeltaTime));
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDirection), 10f * Time.fixedDeltaTime);
+        }
+        
+        // 목적지 도달 확인
+        if (Vector3.Distance(transform.position, destination) < 0.5f)
         {
             UpdateDestinationIndex(resultIndex);
         }
+        
+        // 몬스터가 이동할 때 목적지에 도달했는지 확인
+        // if (MoveToDestination(destination))
+        // {
+        //     UpdateDestinationIndex(resultIndex);
+        // }
         
         // ======================= 공격 기능 =======================
         // GameObject target = FindTarget();
@@ -154,6 +178,24 @@ public class EnemyController : MonoBehaviour, IAttack
                 isReverse = true;
             }
         }
+    }
+    
+    // 회피
+    void CalculateAvoidanceVector()
+    {
+        avoidVector = Vector3.zero;
+        Collider[] nearbyEnemies = Physics.OverlapSphere(transform.position, avoidRange, enemyLayer);
+
+        foreach (Collider enemyCollider in nearbyEnemies)
+        {
+            if (enemyCollider.gameObject != gameObject)
+            {
+                Vector3 avoidDir = transform.position - enemyCollider.transform.position;
+                avoidVector += avoidDir.normalized / avoidDir.magnitude;
+            }
+        }
+
+        avoidVector *= avoidForce;
     }
     
     // 공격대상 감지

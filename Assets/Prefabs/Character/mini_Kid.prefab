@@ -1586,7 +1586,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats:
     originAttackDamage: 10
-    originMaxHp: 10000
+    originMaxHp: 100
 --- !u!1001 &7060871094625641961
 PrefabInstance:
   m_ObjectHideFlags: 0

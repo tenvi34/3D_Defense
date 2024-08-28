@@ -3756,6 +3756,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Inventory
       objectReference: {fileID: 0}
+    - target: {fileID: 6680788674770283518, guid: d38ce37e6ca8f5949aec62c2ec5d683b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 342207052}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

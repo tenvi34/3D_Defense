@@ -66,17 +66,26 @@ public class ItemManager : SceneSingleton<ItemManager>
         }
     }
 
-    Vector3 GetRandomPointInTriangle(Vector3 v1, Vector3 v2, Vector3 v3)
+    Vector3 GetRandomPointInTriangle(Vector3 vertex1, Vector3 vertex2, Vector3 vertex3)
     {
-        float r1 = Random.value;
-        float r2 = Random.value;
-        if (r1 + r2 > 1)
+        // 삼각형 내부의 랜덤한 점을 찾기 위한 두 개의 랜덤 가중치 생성
+        float weight1 = Random.value;
+        float weight2 = Random.value;
+
+        // 생성된 점이 삼각형 내부에 있도록 보정
+        if (weight1 + weight2 > 1)
         {
-            r1 = 1 - r1;
-            r2 = 1 - r2;
+            weight1 = 1 - weight1;
+            weight2 = 1 - weight2;
         }
 
-        return v1 + r1 * (v2 - v1) + r2 * (v3 - v1);
+        // 남은 가중치 계산
+        float weight3 = 1 - weight1 - weight2;
+
+        // 각 꼭지점에 가중치를 적용하여 랜덤한 내부 점 계산
+        Vector3 randomPoint = weight1 * vertex1 + weight2 * vertex2 + weight3 * vertex3;
+
+        return randomPoint;
     }
     
     void Start()
@@ -93,5 +102,10 @@ public class ItemManager : SceneSingleton<ItemManager>
     {
         // 클릭해서 아이템 사용 기능 구현
         
+    }
+
+    public void OnItemSlotClick()
+    {
+        Debug.Log("아이템 슬롯 클릭");
     }
 }
