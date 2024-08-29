@@ -20,9 +20,14 @@ public class EnemyController : MonoBehaviour, IAttack
     
     // 동선 관련
     [SerializeField] private float avoidRange = 2f; // 회피 반경
-    [SerializeField] private float avoidForce = 1f; // 회피력
+    [SerializeField] private float avoidForce = 1f; // 적 회피력
     [SerializeField] private LayerMask enemyLayer; // 적 레이어
     private Vector3 avoidVector;
+    
+    // 벽 만나면 피하기
+    public LayerMask wallLayer;
+    public float obstacleDetectionRange = 3f; // 장애물 감지 거리
+    public float wallAvoidanceForce = 2f; // 벽 회피력
     
     public float AttackRange => attackRange;
     public float DetectionRange => detectionRange;
@@ -99,6 +104,8 @@ public class EnemyController : MonoBehaviour, IAttack
         
         // 회피 벡터 계산
         CalculateAvoidanceVector();
+
+        Vector3 wallAvoidance = CalculateWallAvoidanceVector();
         
         // 회피 벡터 적용하기
         Vector3 moveDirection = (destination - transform.position).normalized + avoidVector;
@@ -129,7 +136,7 @@ public class EnemyController : MonoBehaviour, IAttack
         //     _stateMachine.ChangeState(MonsterState.Attack);
         // }
     }
-    
+
     // 다음 목적지로 이동
     public bool MoveToDestination(Vector3 destination)
     {
@@ -196,6 +203,24 @@ public class EnemyController : MonoBehaviour, IAttack
         }
 
         avoidVector *= avoidForce;
+    }
+    
+    // 벽 회피
+    Vector3 CalculateWallAvoidanceVector()
+    {
+        Vector3 avoidance = Vector3.zero;
+        Vector3[] directions = { transform.forward, transform.right, -transform.right, transform.forward + transform.right, transform.forward - transform.right };
+
+        foreach (Vector3 dir in directions)
+        {
+            Ray ray = new Ray(transform.position, dir);
+            if (Physics.Raycast(ray, out RaycastHit hit, obstacleDetectionRange, wallLayer))
+            {
+                avoidance += (transform.position - hit.point).normalized * (obstacleDetectionRange - hit.distance) / obstacleDetectionRange;
+            }
+        }
+
+        return avoidance.normalized * wallAvoidanceForce;
     }
     
     // 공격대상 감지
