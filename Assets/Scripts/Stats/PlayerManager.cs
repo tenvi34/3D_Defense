@@ -49,4 +49,24 @@ public class PlayerManager : MonoBehaviour
             playerStats.UpgradeMaxHp(multiplier);
         }
     }
+
+    public void HealAllPlayer(float effectValue)
+    {
+        foreach (var playerStats in playerStatsList)
+        {
+            playerStats.Heal(effectValue);
+        }
+    }
+
+    public void AttackBoostAllPlayer(float effectValue, float effectDuration)
+    {
+        StartCoroutine(AttackBoostCoroutine(effectValue, effectDuration));
+    }
+
+    private IEnumerator AttackBoostCoroutine(float effectValue, float effectDuration)
+    {
+        UpgradeAllPlayersAttack(effectValue); // 강화
+        yield return new WaitForSeconds(effectDuration); // 정해진 지속시간동안만
+        UpgradeAllPlayersAttack(-effectValue); // 강화 효과 제거
+    }
 }

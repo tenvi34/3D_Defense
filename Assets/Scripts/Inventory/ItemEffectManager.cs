@@ -4,14 +4,27 @@ using UnityEngine;
 
 public class ItemEffectManager : MonoBehaviour
 {
-    
-    void Start()
+    public enum EffectType
     {
-        
+        AttackBoost,
+        Heal,
     }
 
-    void Update()
+    public EffectType effectType;
+    public float effectValue;
+    public float effectDuration;
+
+    public void ApplyEffect()
     {
-        
+        switch (effectType)
+        {
+            case EffectType.Heal:
+                PlayerManager.Instance.HealAllPlayer(effectValue);
+                break;
+            case EffectType.AttackBoost:
+                PlayerManager.Instance.AttackBoostAllPlayer(effectValue, effectDuration);
+                break;
+        }
     }
+
 }

@@ -46,4 +46,10 @@ public class PlayerStats : MonoBehaviour
         UpdateMaxHp();
         _playerController.UpdateStats();
     }
+
+    public void Heal(float effectValue)
+    {
+        _hpScript.Heal(effectValue);
+        Debug.Log($"체력 {effectValue} 회복. 현재 체력: {_hpScript.GetCurrentHp()}");
+    }
 }

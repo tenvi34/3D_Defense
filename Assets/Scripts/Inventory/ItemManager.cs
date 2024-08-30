@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -17,7 +18,13 @@ public class ItemManager : SceneSingleton<ItemManager>
     {
         GameObject itemWrappingObject = new GameObject();
         Item wrappingItem = itemWrappingObject.AddComponent<Item>();
+        ItemEffectManager itemEffectManager = itemWrappingObject.AddComponent<ItemEffectManager>();
+        
         wrappingItem.itemSprite = item.itemSprite;
+        wrappingItem.itemEffectManager = itemEffectManager;
+        itemEffectManager.effectType = item.itemEffectManager.effectType;
+        itemEffectManager.effectValue = item.itemEffectManager.effectValue;
+        itemEffectManager.effectDuration = item.itemEffectManager.effectDuration;
         
         int settedIndex = -1;
         for (int i = 0; i < Inventory.Count; ++i)
@@ -57,13 +64,46 @@ public class ItemManager : SceneSingleton<ItemManager>
             int layer = 1 << NavMesh.GetAreaFromName("Walkable");
             if (NavMesh.SamplePosition(center, out hit, 1000.0f, layer))
             {
-                
-                Instantiate(itemPrefab, hit.position, Quaternion.identity);
+                //Instantiate(itemPrefab, hit.position, Quaternion.identity);
+                GameObject newItem = Instantiate(itemPrefab, hit.position, Quaternion.identity);
+                Item itemComponent = newItem.GetComponent<Item>();
+                ItemEffectManager itemEffect = newItem.GetComponent<ItemEffectManager>();
+                SetRandomEffect(itemEffect);
             }
             
             float randomTime = Random.Range(1.0f, 10.0f);
             yield return new WaitForSeconds(randomTime);
         }
+    }
+
+    private void SetRandomEffect(ItemEffectManager itemEffect)
+    {
+        itemEffect.effectType = Random.value < 0.5f ? ItemEffectManager.EffectType.Heal : ItemEffectManager.EffectType.AttackBoost;
+        
+        switch (itemEffect.effectType)
+        {
+            case ItemEffectManager.EffectType.Heal:
+                itemEffect.effectValue = 30f;
+                break;
+            case ItemEffectManager.EffectType.AttackBoost:
+                itemEffect.effectValue = Random.Range(0.1f, 0.3f); // 10% ~ 30% 증가
+                itemEffect.effectDuration = 30f;
+                break;
+        }
+    }
+    
+    public void UseItem(int slotIndex)
+    {
+        if (slotIndex < 0 || slotIndex >= Inventory.Count || Inventory[slotIndex] == null)
+            return;
+
+        Item item = Inventory[slotIndex];
+        item.ItemUse();
+
+        Inventory[slotIndex] = null;
+        Ui_Inventory.SetSpriteToSlot(slotIndex, null);
+
+        Destroy(item.gameObject);
     }
 
     Vector3 GetRandomPointInTriangle(Vector3 vertex1, Vector3 vertex2, Vector3 vertex3)

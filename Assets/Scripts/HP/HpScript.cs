@@ -100,4 +100,9 @@ public class HpScript : MonoBehaviour
     {
         maxHp = statsMaxHealth;
     }
+
+    public void Heal(float healPoint)
+    {
+        currentHp += healPoint;
+    }
 }
