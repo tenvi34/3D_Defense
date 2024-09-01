@@ -8,6 +8,7 @@ public class Item : MonoBehaviour
     public float ArrivedDistance = 0.0f;
     public bool StartedTrace = false;
     public Sprite itemSprite;
+    public ItemEffectManager itemEffectManager;
 
     IEnumerator TraceProcess()
     {
@@ -49,5 +50,10 @@ public class Item : MonoBehaviour
                 StartCoroutine(TraceProcess());
             }   
         }
+    }
+
+    public void ItemUse()
+    {
+        itemEffectManager.ApplyEffect();
     }
 }
