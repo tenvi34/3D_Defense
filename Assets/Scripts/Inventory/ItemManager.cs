@@ -18,13 +18,13 @@ public class ItemManager : SceneSingleton<ItemManager>
     {
         GameObject itemWrappingObject = new GameObject();
         Item wrappingItem = itemWrappingObject.AddComponent<Item>();
-        ItemEffectManager itemEffectManager = itemWrappingObject.AddComponent<ItemEffectManager>();
+        // ItemEffectManager itemEffectManager = itemWrappingObject.AddComponent<ItemEffectManager>();
         
         wrappingItem.itemSprite = item.itemSprite;
-        wrappingItem.itemEffectManager = itemEffectManager;
-        itemEffectManager.effectType = item.itemEffectManager.effectType;
-        itemEffectManager.effectValue = item.itemEffectManager.effectValue;
-        itemEffectManager.effectDuration = item.itemEffectManager.effectDuration;
+        // wrappingItem.itemEffectManager = itemEffectManager;
+        // itemEffectManager.effectType = item.itemEffectManager.effectType;
+        // itemEffectManager.effectValue = item.itemEffectManager.effectValue;
+        // itemEffectManager.effectDuration = item.itemEffectManager.effectDuration;
         
         int settedIndex = -1;
         for (int i = 0; i < Inventory.Count; ++i)
@@ -64,11 +64,11 @@ public class ItemManager : SceneSingleton<ItemManager>
             int layer = 1 << NavMesh.GetAreaFromName("Walkable");
             if (NavMesh.SamplePosition(center, out hit, 1000.0f, layer))
             {
-                //Instantiate(itemPrefab, hit.position, Quaternion.identity);
-                GameObject newItem = Instantiate(itemPrefab, hit.position, Quaternion.identity);
-                Item itemComponent = newItem.GetComponent<Item>();
-                ItemEffectManager itemEffect = newItem.GetComponent<ItemEffectManager>();
-                SetRandomEffect(itemEffect);
+                Instantiate(itemPrefab, hit.position, Quaternion.identity);
+                // GameObject newItem = Instantiate(itemPrefab, hit.position, Quaternion.identity);
+                // Item itemComponent = newItem.GetComponent<Item>();
+                // ItemEffectManager itemEffect = newItem.GetComponent<ItemEffectManager>();
+                //SetRandomEffect(itemEffect);
             }
             
             float randomTime = Random.Range(1.0f, 10.0f);
@@ -76,21 +76,21 @@ public class ItemManager : SceneSingleton<ItemManager>
         }
     }
 
-    private void SetRandomEffect(ItemEffectManager itemEffect)
-    {
-        itemEffect.effectType = Random.value < 0.5f ? ItemEffectManager.EffectType.Heal : ItemEffectManager.EffectType.AttackBoost;
-        
-        switch (itemEffect.effectType)
-        {
-            case ItemEffectManager.EffectType.Heal:
-                itemEffect.effectValue = 30f;
-                break;
-            case ItemEffectManager.EffectType.AttackBoost:
-                itemEffect.effectValue = Random.Range(0.1f, 0.3f); // 10% ~ 30% 증가
-                itemEffect.effectDuration = 30f;
-                break;
-        }
-    }
+    // private void SetRandomEffect(ItemEffectManager itemEffect)
+    // {
+    //     itemEffect.effectType = Random.value < 0.5f ? ItemEffectManager.EffectType.Heal : ItemEffectManager.EffectType.AttackBoost;
+    //     
+    //     switch (itemEffect.effectType)
+    //     {
+    //         case ItemEffectManager.EffectType.Heal:
+    //             itemEffect.effectValue = 30f;
+    //             break;
+    //         case ItemEffectManager.EffectType.AttackBoost:
+    //             itemEffect.effectValue = Random.Range(0.1f, 0.3f); // 10% ~ 30% 증가
+    //             itemEffect.effectDuration = 30f;
+    //             break;
+    //     }
+    // }
     
     public void UseItem(int slotIndex)
     {
