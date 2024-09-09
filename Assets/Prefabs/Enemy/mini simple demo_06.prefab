@@ -1636,6 +1636,11 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  obstacleDetectionRange: 3
+  wallAvoidanceForce: 2
   showDetectionRange: 1
   showAttackRange: 1
   selectMarker: {fileID: 8917839267215465953}
@@ -1711,8 +1716,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fa43c5773d69ae43aee78c57cbb7dd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 100
-  currentHp: 100
+  maxHp: 250
+  currentHp: 250
   healthBarPrefab: {fileID: 7885945034577748080, guid: fe24e6ef5b9d23649ba9c2ad7d0d370f,
     type: 3}
 --- !u!1 &6695827981341127295

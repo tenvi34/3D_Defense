@@ -21,7 +21,7 @@ public class CoinManager : DD_Singleton<CoinManager>
     public void AddCoin(int coinNum)
     {
         TotalCoin += coinNum;
-        Debug.Log($"코인 {coinNum}개 추가. 현재 보유 코인: {TotalCoin}");
+        // Debug.Log($"코인 {coinNum}개 추가. 현재 보유 코인: {TotalCoin}");
     }
     
     // 코인 사용

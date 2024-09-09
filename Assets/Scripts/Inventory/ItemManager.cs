@@ -76,6 +76,7 @@ public class ItemManager : SceneSingleton<ItemManager>
         }
     }
 
+    // 아이템 효과 적용
     // private void SetRandomEffect(ItemEffectManager itemEffect)
     // {
     //     itemEffect.effectType = Random.value < 0.5f ? ItemEffectManager.EffectType.Heal : ItemEffectManager.EffectType.AttackBoost;
@@ -140,12 +141,19 @@ public class ItemManager : SceneSingleton<ItemManager>
 
     void Update()
     {
-        // 클릭해서 아이템 사용 기능 구현
         
     }
 
-    public void OnItemSlotClick()
+    public void OnItemSlotClick_0()
     {
-        Debug.Log("아이템 슬롯 클릭");
+        Debug.Log("아이템 0번 슬롯 클릭");
+    }
+    public void OnItemSlotClick_1()
+    {
+        Debug.Log("아이템 1번 슬롯 클릭");
+    }
+    public void OnItemSlotClick_2()
+    {
+        Debug.Log("아이템 2번 슬롯 클릭");
     }
 }
